@@ -165,4 +165,8 @@ class Assoc
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->type." ".$this->product." ".$this->quantity;
+    }
 }
