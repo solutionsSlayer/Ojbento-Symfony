@@ -167,6 +167,6 @@ class Assoc
     }
     public function __toString()
     {
-        return $this->type." ".$this->product." ".$this->quantity;
+        return sprintf("%s %s %s",$this->type, $this->product, $this->quantity);
     }
 }
