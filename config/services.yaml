@@ -11,6 +11,10 @@ parameters:
     img_allergen_path: 'img/allergens'
 
 services:
+    app.form.registration:
+        class: App\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
