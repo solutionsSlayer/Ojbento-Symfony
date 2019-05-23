@@ -1,0 +1,47 @@
+<?php
+
+namespace App\ApiController;
+
+
+use App\Entity\User;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use FOS\UserBundle\Model\UserManagerInterface;
+
+/**
+ * @Rest\Route("/auth", host="api.todo.do")
+ */
+class AuthController extends AbstractFOSRestController
+{
+    /**
+     * @Rest\Post(
+     *     path="/register",
+     *     name="auth_register_api"
+     * )
+     * @param Request $request
+     * @param UserManagerInterface $userManager
+     * @return View
+     */
+    public function register(Request $request, UserManagerInterface $userManager)
+    {
+        $user = new User();
+        $user
+            ->setUsername($request->get('username'))
+            ->setPlainPassword($request->get('password'))
+            ->setEmail($request->get('email'))
+            ->setEnabled(true)
+            ->setRoles(['ROLE_USER'])
+            ->setSuperAdmin(false)
+        ;
+        try {
+            $userManager->updateUser($user);
+        } catch (\Exception $e) {
+            return View::create(["error" => $e->getMessage()], 500);
+        }
+        return View::create($user, Response::HTTP_CREATED);
+    }
+
+}
