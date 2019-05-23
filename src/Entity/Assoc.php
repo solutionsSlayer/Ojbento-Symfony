@@ -49,6 +49,11 @@ class Assoc
     private $type;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $image;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Priceassoc", cascade={"all"}, mappedBy="assoc", orphanRemoval=true)
      */
     private $prices;
@@ -168,5 +173,17 @@ class Assoc
     public function __toString()
     {
         return sprintf("%s %s %s",$this->type, $this->product, $this->quantity);
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }
