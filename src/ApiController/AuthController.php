@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
- * @Rest\Route("/auth", host="api.todo.do")
+ * @Rest\Route("/auth", host="api.ojbento.fr")
  */
 class AuthController extends AbstractFOSRestController
 {

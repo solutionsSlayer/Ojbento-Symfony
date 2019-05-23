@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandassoc{% endblock %}
+
+{% block body %}
+    <h1>Commandassoc</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commandassoc.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ commandassoc.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('commandassoc_index') }}">back to list</a>
+
+    <a href="{{ path('commandassoc_edit', {'id': commandassoc.id}) }}">edit</a>
+
+    {{ include('commandassoc/_delete_form.html.twig') }}
+{% endblock %}

@@ -2,9 +2,9 @@
 
 namespace App\ApiController;
 
-use App\Entity\Command;
-use App\Form\CommandType;
-use App\Repository\CommandRepository;
+use App\Entity\Commandassoc;
+use App\Form\CommandassocType;
+use App\Repository\CommandassocRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
@@ -12,44 +12,44 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Rest\Route("/command", host="api.ojbento.fr")
+ * @Rest\Route("/commandassoc", host="api.ojbento.fr")
  */
-class CommandController extends AbstractFOSRestController
+class CommandassocController extends AbstractFOSRestController
 {
     /**
-     * Retrieves a collection of Command resource
+     * Retrieves a collection of command resource
      * @Rest\Get(
      *     path = "/",
-     *     name = "command_list_api",
+     *     name = "commandassoc_list_api",
      * )
      * @Rest\View()
      */
-    public function index(CommandRepository $commandRepository): View
+    public function index(CommandassocRepository $commandassocRepository): View
     {
-        $commands = $commandRepository->findAll();
+        $commandsassoc = $commandassocRepository->findAll();
         // In case our GET was a success we need to return a 200 HTTP OK
         // response with the collection of task object
-        return View::create($commands, Response::HTTP_OK);
+        return View::create($commandsassoc, Response::HTTP_OK);
     }
 
     /**
-     * Retrieves a Command
+     * Retrieves a commandassoc
      * @Rest\Get(
      *     path = "/{id}",
-     *     name = "command_show_api",
+     *     name = "commandassoc_show_api",
      * )
      * @Rest\View()
      */
-    public function show(Command $command): View
+    public function show(Commandassoc $commandassoc): View
     {
-        return View::create($command, Response::HTTP_OK);
+        return View::create($commandassoc, Response::HTTP_OK);
     }
 
     /**
-     * Create a command
+     * Create a commandassoc
      * @Rest\Post(
      *     path = "/new",
-     *     name = "command_create_api",
+     *     name = "commandassoc_create_api",
      * )
      * @param Request $request
      * @Rest\View()
@@ -57,12 +57,13 @@ class CommandController extends AbstractFOSRestController
      */
     public function create(Request $request): View
     {
-        $command = new Command();
-        $command->setUser($this->getUser());
+        $commandassoc = new Commandassoc();
+        $commandassoc->setQuantity($request->get('quantity'));
+        $commandassoc->setAssoc($request->get('assoc'));
         $em = $this->getDoctrine()->getManager();
-        $em->persist($command);
+        $em->persist($commandassoc);
         $em->flush();
-        return View::create($command, Response::HTTP_CREATED);
+        return View::create($commandassoc, Response::HTTP_CREATED);
     }
 
 //    /**
