@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assoc index{% endblock %}
+
+{% block body %}
+    <h1>Assoc index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantity</th>
+                <th>Products</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>IsDish</th>
+                <th>Description</th>
+                <th>Composition</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assoc in assocs %}
+            <tr>
+                <td>{{ assoc.id }}</td>
+                <td>{{ assoc.quantity }}</td>
+                <td>{{ assoc.type }} {{ assoc.product }}</td>
+                <td>{% if assoc.image %} <img src="{{ asset(assoc.image.imgpath) }}" width="200px" /> {% endif %}</td>
+                <td>{% for price in assoc.prices %} <div>{{ price.type }} {{ price }}€ </div>{%  endfor %}</td>
+                <td>{{ assoc.isDish ? 'Yes' : 'No' }}</td>
+                <td>{{ assoc.description }}</td>
+                <td>{{ assoc.composition }}</td>
+                <td>
+                    <a href="{{ path('assoc_show', {'id': assoc.id}) }}">show</a>
+                    <a href="{{ path('assoc_edit', {'id': assoc.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('assoc_new') }}">Create new</a>
+{% endblock %}

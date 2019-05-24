@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assoc{% endblock %}
+
+{% block body %}
+    <h1>Assoc</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ assoc.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ assoc.quantity }}</td>
+            </tr>
+            <tr>
+                <th>IsDish</th>
+                <td>{{ assoc.isDish ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ assoc.description }}</td>
+            </tr>
+            <tr>
+                <th>Composition</th>
+                <td>{{ assoc.composition }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('assoc_index') }}">back to list</a>
+
+    <a href="{{ path('assoc_edit', {'id': assoc.id}) }}">edit</a>
+
+    {{ include('assoc/_delete_form.html.twig') }}
+{% endblock %}

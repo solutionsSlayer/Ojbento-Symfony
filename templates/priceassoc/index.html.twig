@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Priceassoc index{% endblock %}
+
+{% block body %}
+    <h1>Priceassoc index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for priceassoc in priceassocs %}
+            <tr>
+                <td>{{ priceassoc.id }}</td>
+                <td>{{ priceassoc.value }}</td>
+                <td>
+                    <a href="{{ path('priceassoc_show', {'id': priceassoc.id}) }}">show</a>
+                    <a href="{{ path('priceassoc_edit', {'id': priceassoc.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('priceassoc_new') }}">Create new</a>
+{% endblock %}

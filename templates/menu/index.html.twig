@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu index{% endblock %}
+
+{% block body %}
+    <h1>Menu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Products</th>
+                <th>Price</th>
+                <th>IsMidi</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for menu in menus %}
+            <tr>
+                <td>{{ menu.id }}</td>
+                <td>{{ menu.name }}</td>
+                <td>{% for assoc in menu.assocs %} <div> {{ assoc.quantity }} {{ assoc.type }} {{ assoc.product.name }}</div>{% endfor %}</td>
+                <td>{% for price in menu.prices %} <div> {{ price.value }}€ {{ price.type }}</div>{% endfor %}</td>
+                <td>{{ menu.isMidi ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('menu_show', {'id': menu.id}) }}">show</a>
+                    <a href="{{ path('menu_edit', {'id': menu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('menu_new') }}">Create new</a>
+{% endblock %}

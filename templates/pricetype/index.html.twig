@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pricetype index{% endblock %}
+
+{% block body %}
+    <h1>Pricetype index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pricetype in pricetypes %}
+            <tr>
+                <td>{{ pricetype.id }}</td>
+                <td>{{ pricetype.name }}</td>
+                <td>
+                    <a href="{{ path('pricetype_show', {'id': pricetype.id}) }}">show</a>
+                    <a href="{{ path('pricetype_edit', {'id': pricetype.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pricetype_new') }}">Create new</a>
+{% endblock %}

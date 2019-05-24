@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pricemenu index{% endblock %}
+
+{% block body %}
+    <h1>Pricemenu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pricemenu in pricemenus %}
+            <tr>
+                <td>{{ pricemenu.id }}</td>
+                <td>{{ pricemenu.value }}</td>
+                <td>
+                    <a href="{{ path('pricemenu_show', {'id': pricemenu.id}) }}">show</a>
+                    <a href="{{ path('pricemenu_edit', {'id': pricemenu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pricemenu_new') }}">Create new</a>
+{% endblock %}
