@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Priceassoc{% endblock %}
+
+{% block body %}
+    <h1>Edit Priceassoc</h1>
+
+    {{ include('priceassoc/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('priceassoc_index') }}">back to list</a>
+
+    {{ include('priceassoc/_delete_form.html.twig') }}
+{% endblock %}

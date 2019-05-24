@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Priceassoc{% endblock %}
+
+{% block body %}
+    <h1>Priceassoc</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ priceassoc.id }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ priceassoc.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('priceassoc_index') }}">back to list</a>
+
+    <a href="{{ path('priceassoc_edit', {'id': priceassoc.id}) }}">edit</a>
+
+    {{ include('priceassoc/_delete_form.html.twig') }}
+{% endblock %}

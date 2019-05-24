@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Pricemenu{% endblock %}
+
+{% block body %}
+    <h1>Create new Pricemenu</h1>
+
+    {{ include('pricemenu/_form.html.twig') }}
+
+    <a href="{{ path('pricemenu_index') }}">back to list</a>
+{% endblock %}

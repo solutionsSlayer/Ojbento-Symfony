@@ -11,6 +11,10 @@ parameters:
     img_allergen_path: 'img/allergens'
 
 services:
+    app.form.registration:
+        class: App\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -47,6 +51,9 @@ services:
             - method: setCircularReferenceHandler
               arguments: ["@circular_reference_handler"]
 
-    form.type.model.priceType:
-        class: App\Form\PriceType
+    form.type.model.priceassocType:
+        class: App\Form\PriceassocType
+        arguments: ["@doctrine.orm.entity_manager"]
+    form.type.model.pricemenuType:
+        class: App\Form\PricemenuType
         arguments: ["@doctrine.orm.entity_manager"]

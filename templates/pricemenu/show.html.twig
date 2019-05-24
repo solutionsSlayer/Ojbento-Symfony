@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pricemenu{% endblock %}
+
+{% block body %}
+    <h1>Pricemenu</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ pricemenu.id }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ pricemenu.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('pricemenu_index') }}">back to list</a>
+
+    <a href="{{ path('pricemenu_edit', {'id': pricemenu.id}) }}">edit</a>
+
+    {{ include('pricemenu/_delete_form.html.twig') }}
+{% endblock %}

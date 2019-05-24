@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Pricetype{% endblock %}
+
+{% block body %}
+    <h1>Edit Pricetype</h1>
+
+    {{ include('pricetype/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('pricetype_index') }}">back to list</a>
+
+    {{ include('pricetype/_delete_form.html.twig') }}
+{% endblock %}
