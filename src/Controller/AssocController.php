@@ -35,7 +35,29 @@ class AssocController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+
             $entityManager = $this->getDoctrine()->getManager();
+            $image = $assoc->getImage();
+            $file = $form->get('image')->get('file')->getData();
+
+            if ($file){
+                $fileName = $this->generateUniqueFileName().'.'. $file->guessExtension();
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('img_abs_path'), $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $image->setPath($this->getParameter('img_abs_path').'/'.$fileName) ;
+                $image->setImgpath($this->getParameter('img_path').'/'.$fileName);
+                $entityManager->persist($image);
+            }else{
+                $assoc->setImage(null);
+            }
+
             $entityManager->persist($assoc);
             $entityManager->flush();
 
@@ -67,6 +89,29 @@ class AssocController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $image = $assoc->getImage();
+            $file = $form->get('image')->get('file')->getData();
+
+            if ($file){
+                $fileName = $this->generateUniqueFileName().'.'. $file->guessExtension();
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('img_abs_path'), $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $this->removeFile($image->getPath());
+                $image->setPath($this->getParameter('img_abs_path').'/'.$fileName) ;
+                $image->setImgpath($this->getParameter('img_path').'/'.$fileName);
+                $entityManager->persist($image);
+            }
+            if (empty($image->getId()) && !$file ){
+                $assoc->setImage(null);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('assoc_index', [
@@ -92,5 +137,17 @@ class AssocController extends AbstractController
         }
 
         return $this->redirectToRoute('assoc_index');
+    }
+
+    /**
+     * @return string
+     */
+    function generateUniqueFileName() {
+        return md5(uniqid());
+    }
+    private function removeFile($path){
+        if(file_exists($path)){
+            unlink($path);
+        }
     }
 }

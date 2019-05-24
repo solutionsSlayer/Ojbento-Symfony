@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Assoc;
+use App\Entity\Image;
+use App\Form\PriceassocType;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +25,7 @@ class AssocType extends AbstractType
                 "class" => Type::class
             ])
             ->add('quantity')
+            ->add('image', ImageType::class)
             ->add('isDish')
             ->add('description')
             ->add('composition')
