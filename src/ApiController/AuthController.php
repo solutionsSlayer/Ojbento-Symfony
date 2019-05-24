@@ -44,4 +44,16 @@ class AuthController extends AbstractFOSRestController
         return View::create($user, Response::HTTP_CREATED);
     }
 
+    /**
+     * @Rest\Get(
+     *     path="/profile",
+     *     name="auth_profile_api"
+     * )
+     */
+    public function profile()
+    {
+        return View::create($this->getUser(), Response::HTTP_OK);
+    }
+
+
 }

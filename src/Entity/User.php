@@ -133,13 +133,6 @@ class User extends BaseUser
         return $this;
     }
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Command", mappedBy="User", orphanRemoval=true)
-     */
-
-
-}
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;

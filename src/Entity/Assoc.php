@@ -58,9 +58,15 @@ class Assoc
      */
     private $prices;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Allergen")
+     */
+    private $allergens;
+
     public function __construct()
     {
         $this->prices = new ArrayCollection();
+        $this->allergens = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +189,32 @@ class Assoc
     public function setImage(?Image $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Allergen[]
+     */
+    public function getAllergens(): Collection
+    {
+        return $this->allergens;
+    }
+
+    public function addAllergen(Allergen $allergen): self
+    {
+        if (!$this->allergens->contains($allergen)) {
+            $this->allergens[] = $allergen;
+        }
+
+        return $this;
+    }
+
+    public function removeAllergen(Allergen $allergen): self
+    {
+        if ($this->allergens->contains($allergen)) {
+            $this->allergens->removeElement($allergen);
+        }
 
         return $this;
     }
