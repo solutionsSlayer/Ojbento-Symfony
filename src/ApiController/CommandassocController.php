@@ -4,12 +4,14 @@ namespace App\ApiController;
 
 use App\Entity\Commandassoc;
 use App\Form\CommandassocType;
+use App\Repository\AssocRepository;
 use App\Repository\CommandassocRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\CommandRepository;
 
 /**
  * @Rest\Route("/commandassoc", host="api.ojbento.fr")
@@ -29,6 +31,7 @@ class CommandassocController extends AbstractFOSRestController
         $commandsassoc = $commandassocRepository->findAll();
         // In case our GET was a success we need to return a 200 HTTP OK
         // response with the collection of task object
+
         return View::create($commandsassoc, Response::HTTP_OK);
     }
 
@@ -55,11 +58,14 @@ class CommandassocController extends AbstractFOSRestController
      * @Rest\View()
      * @return View;
      */
-    public function create(Request $request): View
+    public function create(Request $request, AssocRepository $assocRepository, CommandRepository $commandRepository): View
     {
         $commandassoc = new Commandassoc();
         $commandassoc->setQuantity($request->get('quantity'));
-        $commandassoc->setAssoc($request->get('assoc'));
+        $assoc = $assocRepository->find($request->get('assoc'));
+        $commandassoc->setAssoc($assoc);
+        $command = $commandRepository->find($request->get('command'));
+        $commandassoc->setCommand($command);
         $em = $this->getDoctrine()->getManager();
         $em->persist($commandassoc);
         $em->flush();
