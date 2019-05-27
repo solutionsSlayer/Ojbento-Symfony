@@ -30,6 +30,10 @@ class AuthController extends AbstractFOSRestController
         $user = new User();
         $user
             ->setUsername($request->get('username'))
+            ->setPhone($request->get('phone'))
+            ->setLname($request->get('lname'))
+            ->setFname($request->get('fname'))
+            ->setCity($request->get('city'))
             ->setPlainPassword($request->get('password'))
             ->setEmail($request->get('email'))
             ->setEnabled(true)
