@@ -10,6 +10,8 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Rest\Route("/command", host="api.ojbento.fr")
@@ -26,9 +28,28 @@ class CommandController extends AbstractFOSRestController
      */
     public function index(CommandRepository $commandRepository): View
     {
-        $commands = $commandRepository->findAll();
+        $results = $commandRepository->findAll();
         // In case our GET was a success we need to return a 200 HTTP OK
         // response with the collection of task object
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $commands = [];
+        foreach ( $results as $command ) {
+            $d = $serializer->normalize($command, null,
+                ['attributes' => [
+                    'id',
+                    'user' => [ 'id' ],
+                    'commandassocs' => ['id', 'quantity',
+                        'assoc' => ['id', 'quantity', 'isDish',
+                            'product'=>['id', 'name'],
+                            'type'=>['id', 'name'],
+                            'prices'=>['id', 'value',
+                                'type'=>['name', 'id']]
+
+                        ]]
+                ]]);
+            array_push($commands, $d);
+        }
         return View::create($commands, Response::HTTP_OK);
     }
 

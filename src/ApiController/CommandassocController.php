@@ -41,7 +41,7 @@ class CommandassocController extends AbstractFOSRestController
                 ['attributes' => [
                     'id',
                     'quantity',
-                    'assoc' => ['id', 'quantity', 'type' => ['name'], 'isDish', 'description', 'composition', 'product' => [
+                    'commandsassoc' => ['id', 'quantity', 'type' => ['name'], 'isDish', 'description', 'composition', 'product' => [
                         'id', 'name'
                     ]]
                 ]]);
