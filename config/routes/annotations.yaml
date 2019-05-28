@@ -1,5 +1,5 @@
 controllers:
-    host: 'ojbento.fr'
+    host: 'admin.ojbento.fr'
     resource: ../../src/Controller/
     type: annotation
 

@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -52,6 +52,7 @@ class User extends BaseUser
      * @ORM\Column(type="datetime")
      */
     protected $updated_at;
+
 
     public function __construct()
     {

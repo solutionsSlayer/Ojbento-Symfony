@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 /**
- * @Route("/image")
+ * @Route("/image", host="admin.ojbento.fr")
  */
 class ImageController extends AbstractController
 {

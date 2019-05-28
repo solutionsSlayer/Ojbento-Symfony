@@ -26,6 +26,12 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
+        register:
+            host: api\.ojbento\.fr
+            pattern: ^/auth/register
+            stateless: true
+            anonymous: true
+
         api:
             host: api\.ojbento\.fr
             pattern: ^/
@@ -37,7 +43,7 @@ security:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
         main:
-            host: ojbento\.fr
+            host: admin\.ojbento\.fr
             pattern: ^/
             form_login:
                 provider: fos_userbundle
@@ -46,8 +52,9 @@ security:
             anonymous: true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: ROLE_ADMIN }
-        - { path: ^/category, role: ROLE_USER, host: api\.ojbento\.fr }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY , host: admin\.ojbento\.fr }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY , host: admin\.ojbento\.fr }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY , host: admin\.ojbento\.fr }
+        - { path: ^/, role: ROLE_ADMIN , host: admin\.ojbento\.fr }
+        - { path: ^/auth/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, host: api\.ojbento\.fr }
+        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
