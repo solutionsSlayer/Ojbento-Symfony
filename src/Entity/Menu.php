@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function PHPSTORM_META\type;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MenuRepository")
@@ -134,4 +135,5 @@ class Menu
     {
         return $this->getName();
     }
+
 }

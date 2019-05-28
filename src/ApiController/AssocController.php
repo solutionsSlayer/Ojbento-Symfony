@@ -21,8 +21,8 @@ class AssocController extends  AbstractFOSRestController
      **/
     public function index(AssocRepository $assocRepository): View
     {
-        $assoc = $assocRepository->findAll();
-        return View::create($assoc, Response::HTTP_OK);
+        $assocs = $assocRepository->findAll();
+        return View::create($assocs, Response::HTTP_OK);
     }
     /**
      * @Rest\Get(path="/{id}", name="Assocshow_api")
