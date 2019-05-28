@@ -41,10 +41,21 @@ class CommandMenuController extends AbstractFOSRestController
                 ['attributes' => [
                     'id',
                     'quantity',
-                    'commandsassoc' => ['id', 'quantity', 'type' => ['name'], 'isDish', 'description', 'composition', 'product' => [
-                        'id', 'name'
-                    ]]
-                ]]);
+                    'menu' => [
+                        'id',
+                        'name',
+                        'isMidi',
+                        'assocs'=> [
+                            'type' => ['name'],
+                            'isDish',
+                            'description',
+                            'composition',
+                            'product' => [
+                                'id',
+                                'name'],
+                            'quantity'
+                        ]
+                ]]]);
             array_push($commandsmenu, $d);
         }
         return View::create($commandsmenu, Response::HTTP_OK);
@@ -60,7 +71,27 @@ class CommandMenuController extends AbstractFOSRestController
      */
     public function show(Commandmenu $commandmenu): View
     {
-        return View::create($commandmenu, Response::HTTP_OK);
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $d = $serializer->normalize($commandmenu, null,
+            ['attributes' => [
+                'id',
+                'quantity',
+                'menu' => [
+                    'id',
+                    'name',
+                    'isMidi',
+                    'assocs'=> [
+                        'type' => ['name'],
+                        'isDish',
+                        'description',
+                        'composition',
+                        'product' => [
+                            'id',
+                            'name'],
+                        'quantity'
+                    ]
+                ]]]);
+        return View::create($d, Response::HTTP_OK);
     }
 
     /**
