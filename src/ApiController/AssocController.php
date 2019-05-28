@@ -22,7 +22,6 @@ class AssocController extends  AbstractFOSRestController
     public function index(AssocRepository $assocRepository): View
     {
         $assoc = $assocRepository->findAll();
-        ObjectNormalizer::
         return View::create($assoc, Response::HTTP_OK);
     }
     /**
