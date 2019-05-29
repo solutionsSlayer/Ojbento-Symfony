@@ -39,17 +39,67 @@ class TypeController extends AbstractFOSRestController
         $serializer = new Serializer([new ObjectNormalizer()]);
 
         $types = [];
-        foreach ( $results as $type )
-        {
+        foreach ($results as $type) {
+            $d = $serializer->normalize($type, null,
+                ['attributes' => [
+                    'id',
+                    'name',
+                    'assocs' => [
+                        'id',
+                        'quantity',
+                        'isDish',
+                        'description',
+                        'composition',
+                        'product' => [
+                            'id',
+                            'name'],
+                        'prices' => [
+                            'id',
+                            'value'
+                        ]
+                    ]
+                ]]);
+            array_push($types, $d);
+        }
+        return View::create($types, Response::HTTP_OK);
+    }
+
+    /**
+     * Retrieves a collection of Command resource
+     * @Rest\Get(
+     *     path = "/assocs",
+     *     name = "type_list_with_assocs_api",
+     * )
+     * @Rest\View()
+     */
+    public function indexAssocs(TypeRepository $typeRepository): View
+    {
+        $results = $typeRepository->findAll();
+        // In case our GET was a success we need to return a 200 HTTP OK
+        // response with the collection of task object
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $types = [];
+        foreach ($results as $type) {
             $d = $serializer->normalize($type, null,
                 ['attributes' => [
                     'id',
                     'name',
                     'assocs' => ['id', 'quantity', 'isDish', 'description', 'composition', 'product' => [
-                        'id', 'name'
-                    ]]
-                ]]);
-            array_push( $types, $d);
+                        'id', 'name'],
+                        'image' => [
+                            'id',
+                            'path',
+                            'imgpath',
+                            'alt'],
+                        'prices' => [
+                            'id',
+                            'value'
+                        ]
+                    ]
+                ]
+                ]);
+            array_push($types, $d);
         }
 
         return View::create($types, Response::HTTP_OK);
