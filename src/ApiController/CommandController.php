@@ -4,6 +4,8 @@ namespace App\ApiController;
 
 use App\Entity\Command;
 use App\Form\CommandType;
+use App\Repository\CommandassocRepository;
+use App\Repository\CommandmenuRepository;
 use App\Repository\CommandRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -38,15 +40,17 @@ class CommandController extends AbstractFOSRestController
             $d = $serializer->normalize($command, null,
                 ['attributes' => [
                     'id',
-                    'user' => [ 'id' ],
+                    'user'=>['id', 'username'],
                     'commandassocs' => ['id', 'quantity',
                         'assoc' => ['id', 'quantity', 'isDish',
                             'product'=>['id', 'name'],
                             'type'=>['id', 'name'],
                             'prices'=>['id', 'value',
-                                'type'=>['name', 'id']]
-
-                        ]]
+                                'type'=>['name', 'id']],
+                        ]
+                    ],
+                    'commandmenus'=> ['id', 'quantity',
+                        'menu' =>['id', 'name']]
                 ]]);
             array_push($commands, $d);
         }
@@ -57,13 +61,32 @@ class CommandController extends AbstractFOSRestController
      * Retrieves a Command
      * @Rest\Get(
      *     path = "/{id}",
-     *     name = "command_show_api",
+     *     name = "commandshow_api"
      * )
      * @Rest\View()
      */
     public function show(Command $command): View
     {
-        return View::create($command, Response::HTTP_OK);
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        {
+            $d = $serializer->normalize($command, null,
+                ['attributes' => [
+                    'id',
+                    'user'=>['id', 'username'],
+                    'commandassocs' => ['id', 'quantity',
+                        'assoc' => ['id', 'quantity', 'isDish',
+                            'product'=>['id', 'name'],
+                            'type'=>['id', 'name'],
+                            'prices'=>['id', 'value',
+                                'type'=>['name', 'id']],
+                        ]
+                    ],
+                    'commandmenus'=> ['id', 'quantity',
+                        'menu' =>['id', 'name']]
+                ]]);
+        }
+        return View::create($d, Response::HTTP_OK);
     }
 
     /**
@@ -76,14 +99,42 @@ class CommandController extends AbstractFOSRestController
      * @Rest\View()
      * @return View;
      */
-    public function create(Request $request): View
+    public function create(Request $request, CommandassocRepository $commandassocRepository, CommandmenuRepository $commandmenuRepository ): View
     {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $em = $this->getDoctrine()->getManager();
         $command = new Command();
         $command->setUser($this->getUser());
-        $em = $this->getDoctrine()->getManager();
+        $commandassocId =$request->get('commandassocs');
+        foreach ($commandassocId as $commandassoc){
+            $ca = $commandassocRepository->find($commandassoc);
+            $command->addCommandassoc($ca);
+            $em->persist($ca);
+        }
+        $commandmenuId =$request->get('commandmenus');
+        foreach ($commandmenuId as $commandmenu){
+            $cm = $commandmenuRepository->find($commandmenu);
+            $command->addCommandmenu($cm);
+            $em->persist($cm);
+        }
         $em->persist($command);
         $em->flush();
-        return View::create($command, Response::HTTP_CREATED);
+        $d = $serializer->normalize($command, null,
+            ['attributes' => [
+                'id',
+                'user'=>['id', 'username'],
+                'commandassocs' => ['id', 'quantity',
+                    'assoc' => ['id', 'quantity', 'isDish',
+                        'product'=>['id', 'name'],
+                        'type'=>['id', 'name'],
+                        'prices'=>['id', 'value',
+                            'type'=>['name', 'id']],
+                    ]
+                ],
+                'commandmenus'=> ['id', 'quantity',
+                    'menu' =>['id', 'name']]
+            ]]);
+        return View::create($d, Response::HTTP_CREATED);
     }
 
 //    /**
