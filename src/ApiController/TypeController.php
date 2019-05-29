@@ -38,6 +38,22 @@ class TypeController extends AbstractFOSRestController
     }
 
     /**
+     * Retrieves a collection of Command resource
+     * @Rest\Get(
+     *     path = "/assocs",
+     *     name = "type_list_with_assocs_api",
+     * )
+     * @Rest\View()
+     */
+    public function indexAssocs(TypeRepository $typeRepository): View
+    {
+        $types = $typeRepository->findAll();
+        // In case our GET was a success we need to return a 200 HTTP OK
+        // response with the collection of task object
+        return View::create($types, Response::HTTP_OK);
+    }
+
+    /**
      * Retrieves a type
      * @Rest\Get(
      *     path = "/{id}",
