@@ -29,9 +29,15 @@ class Command
      */
     private $commandassocs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commandmenu", mappedBy="command", orphanRemoval=true)
+     */
+    private $commandmenus;
+
     public function __construct()
     {
         $this->commandassocs = new ArrayCollection();
+        $this->commandmenus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +82,37 @@ class Command
             // set the owning side to null (unless already changed)
             if ($commandassoc->getCommand() === $this) {
                 $commandassoc->setCommand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commandmenu[]
+     */
+    public function getCommandmenus(): Collection
+    {
+        return $this->commandmenus;
+    }
+
+    public function addCommandmenu(Commandmenu $commandmenu): self
+    {
+        if (!$this->commandmenus->contains($commandmenu)) {
+            $this->commandmenus[] = $commandmenu;
+            $commandmenu->setCommand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandmenu(Commandmenu $commandmenu): self
+    {
+        if ($this->commandmenus->contains($commandmenu)) {
+            $this->commandmenus->removeElement($commandmenu);
+            // set the owning side to null (unless already changed)
+            if ($commandmenu->getCommand() === $this) {
+                $commandmenu->setCommand(null);
             }
         }
 

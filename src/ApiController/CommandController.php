@@ -4,12 +4,16 @@ namespace App\ApiController;
 
 use App\Entity\Command;
 use App\Form\CommandType;
+use App\Repository\CommandassocRepository;
+use App\Repository\CommandmenuRepository;
 use App\Repository\CommandRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Rest\Route("/command", host="api.ojbento.fr")
@@ -26,9 +30,30 @@ class CommandController extends AbstractFOSRestController
      */
     public function index(CommandRepository $commandRepository): View
     {
-        $commands = $commandRepository->findAll();
+        $results = $commandRepository->findAll();
         // In case our GET was a success we need to return a 200 HTTP OK
         // response with the collection of task object
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $commands = [];
+        foreach ( $results as $command ) {
+            $d = $serializer->normalize($command, null,
+                ['attributes' => [
+                    'id',
+                    'user'=>['id', 'username'],
+                    'commandassocs' => ['id', 'quantity',
+                        'assoc' => ['id', 'quantity', 'isDish',
+                            'product'=>['id', 'name'],
+                            'type'=>['id', 'name'],
+                            'prices'=>['id', 'value',
+                                'type'=>['name', 'id']],
+                        ]
+                    ],
+                    'commandmenus'=> ['id', 'quantity',
+                        'menu' =>['id', 'name']]
+                ]]);
+            array_push($commands, $d);
+        }
         return View::create($commands, Response::HTTP_OK);
     }
 
@@ -36,13 +61,32 @@ class CommandController extends AbstractFOSRestController
      * Retrieves a Command
      * @Rest\Get(
      *     path = "/{id}",
-     *     name = "command_show_api",
+     *     name = "commandshow_api"
      * )
      * @Rest\View()
      */
     public function show(Command $command): View
     {
-        return View::create($command, Response::HTTP_OK);
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        {
+            $d = $serializer->normalize($command, null,
+                ['attributes' => [
+                    'id',
+                    'user'=>['id', 'username'],
+                    'commandassocs' => ['id', 'quantity',
+                        'assoc' => ['id', 'quantity', 'isDish',
+                            'product'=>['id', 'name'],
+                            'type'=>['id', 'name'],
+                            'prices'=>['id', 'value',
+                                'type'=>['name', 'id']],
+                        ]
+                    ],
+                    'commandmenus'=> ['id', 'quantity',
+                        'menu' =>['id', 'name']]
+                ]]);
+        }
+        return View::create($d, Response::HTTP_OK);
     }
 
     /**
@@ -55,14 +99,42 @@ class CommandController extends AbstractFOSRestController
      * @Rest\View()
      * @return View;
      */
-    public function create(Request $request): View
+    public function create(Request $request, CommandassocRepository $commandassocRepository, CommandmenuRepository $commandmenuRepository ): View
     {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $em = $this->getDoctrine()->getManager();
         $command = new Command();
         $command->setUser($this->getUser());
-        $em = $this->getDoctrine()->getManager();
+        $commandassocId =$request->get('commandassocs');
+        foreach ($commandassocId as $commandassoc){
+            $ca = $commandassocRepository->find($commandassoc);
+            $command->addCommandassoc($ca);
+            $em->persist($ca);
+        }
+        $commandmenuId =$request->get('commandmenus');
+        foreach ($commandmenuId as $commandmenu){
+            $cm = $commandmenuRepository->find($commandmenu);
+            $command->addCommandmenu($cm);
+            $em->persist($cm);
+        }
         $em->persist($command);
         $em->flush();
-        return View::create($command, Response::HTTP_CREATED);
+        $d = $serializer->normalize($command, null,
+            ['attributes' => [
+                'id',
+                'user'=>['id', 'username'],
+                'commandassocs' => ['id', 'quantity',
+                    'assoc' => ['id', 'quantity', 'isDish',
+                        'product'=>['id', 'name'],
+                        'type'=>['id', 'name'],
+                        'prices'=>['id', 'value',
+                            'type'=>['name', 'id']],
+                    ]
+                ],
+                'commandmenus'=> ['id', 'quantity',
+                    'menu' =>['id', 'name']]
+            ]]);
+        return View::create($d, Response::HTTP_CREATED);
     }
 
 //    /**

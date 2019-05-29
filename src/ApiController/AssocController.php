@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/assoc", host="api.ojbento.fr")
@@ -21,8 +22,31 @@ class AssocController extends  AbstractFOSRestController
      **/
     public function index(AssocRepository $assocRepository): View
     {
-        $assoc = $assocRepository->findAll();
-        return View::create($assoc, Response::HTTP_OK);
+        $results = $assocRepository->findAll();
+        // In case our GET was a success we need to return a 200 HTTP OK
+        // response with the collection of task object
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $assocs = [];
+        foreach ( $results as $assoc )
+        {
+            $d = $serializer->normalize($assoc, null,
+                ['attributes' => [
+                    'id',
+                    'quantity',
+                    'isDish',
+                    'description',
+                    'composition',
+                    'product' => [
+                        'id', 'name'],
+                    'type' =>['id', 'name'],
+                    'prices'=>['id', 'value', 'type'=>['name']]
+                ]
+                ]);
+            array_push( $assocs, $d);
+        }
+
+        return View::create($assocs, Response::HTTP_OK);
     }
     /**
      * @Rest\Get(path="/{id}", name="Assocshow_api")

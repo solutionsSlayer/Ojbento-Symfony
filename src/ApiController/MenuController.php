@@ -7,6 +7,9 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 /**
  * @Route("/menu", host="api.ojbento.fr")
  */
@@ -19,8 +22,26 @@ class MenuController extends  AbstractFOSRestController
      **/
     public function index(MenuRepository $menuRepository): View
     {
-        $menu = $menuRepository->findAll();
-        return View::create($menu, Response::HTTP_OK);
+        $results = $menuRepository->findAll();
+        // In case our GET was a success we need to return a 200 HTTP OK
+        // response with the collection of task object
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $menus = [];
+        foreach ( $results as $menu )
+        {
+            $d = $serializer->normalize($menu, null,
+                ['attributes' => [
+                    'id',
+                    'name',
+                    'isMidi',
+                    'assocs' => [
+                        'id', 'type'=>['id','name'], 'description', 'composition'],
+                     'prices'=>['id', 'value', 'type'=>['name']]
+                ]]);
+            array_push( $menus, $d);
+        }
+        return View::create($menus, Response::HTTP_OK);
     }
     /**
      * @Rest\Get(path="/{id}", name="Menushow_api")
