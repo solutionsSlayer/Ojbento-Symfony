@@ -34,6 +34,12 @@ class Command
      */
     private $commandmenus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Time")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $time;
+
     public function __construct()
     {
         $this->commandassocs = new ArrayCollection();
@@ -115,6 +121,18 @@ class Command
                 $commandmenu->setCommand(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTime(): ?Time
+    {
+        return $this->time;
+    }
+
+    public function setTime(?Time $time): self
+    {
+        $this->time = $time;
 
         return $this;
     }
