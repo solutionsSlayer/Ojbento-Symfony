@@ -44,4 +44,35 @@ class Product
     {
         return $this->getName();
     }
+
+    /**
+     * @return Collection|Assoc[]
+     */
+    public function getAssocs(): Collection
+    {
+        return $this->assocs;
+    }
+
+    public function addAssoc(Assoc $assoc): self
+    {
+        if (!$this->assocs->contains($assoc)) {
+            $this->assocs[] = $assoc;
+            $assoc->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssoc(Assoc $assoc): self
+    {
+        if ($this->assocs->contains($assoc)) {
+            $this->assocs->removeElement($assoc);
+            // set the owning side to null (unless already changed)
+            if ($assoc->getProduct() === $this) {
+                $assoc->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
 }

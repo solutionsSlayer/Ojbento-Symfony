@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Command;
+use App\Entity\State;
 use App\Entity\Time;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,6 +18,9 @@ class CommandType extends AbstractType
             ->add('user')
             ->add('time', EntityType::class, array(
                 "class" => Time::class
+            ))
+            ->add('state', EntityType::class, array(
+                "class" => State::class
             ))
         ;
     }

@@ -40,6 +40,12 @@ class Command
      */
     private $time;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\State")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
+
     public function __construct()
     {
         $this->commandassocs = new ArrayCollection();
@@ -133,6 +139,18 @@ class Command
     public function setTime(?Time $time): self
     {
         $this->time = $time;
+
+        return $this;
+    }
+
+    public function getState(): ?State
+    {
+        return $this->state;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
