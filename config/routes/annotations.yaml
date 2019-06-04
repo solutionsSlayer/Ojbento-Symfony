@@ -1,3 +1,9 @@
+to_ng:
+    path: /
+    host: 'ojbento.fr'
+    defaults:
+        url: 'http://ojbento.fr'
+
 controllers:
     host: 'admin.ojbento.fr'
     resource: ../../src/Controller/

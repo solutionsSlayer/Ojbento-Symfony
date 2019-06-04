@@ -2,28 +2,32 @@
 
 namespace App\ApiController;
 
-
 use App\Entity\User;
-use App\Event\UserRegisterEvent;
+use App\Event\FilterUserRegistrationEvent;
+use App\Repository\UserRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
-use Sensio\Bundle\FrameworkExtraBundle\Tests\Request\ParamConverter\TestUserRepository;
+use FOS\UserBundle\FOSUserEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Rest\Route("/auth", host="api.ojbento.fr")
  */
 class AuthController extends AbstractFOSRestController
 {
-    protected $dispatcher;
-    public function __construct(EventDispatcherInterface $dispatcher)
+    private $eventDispatcher;
+
+    function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->dispatcher = $dispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
+
     /**
      * @Rest\Post(
      *     path="/register",
@@ -35,26 +39,23 @@ class AuthController extends AbstractFOSRestController
      */
     public function register(Request $request, UserManagerInterface $userManager)
     {
-        $user = $userManager->createUser();
+        $user = new User();
         $user
-            ->setUsername($request->get('username'))
-            ->setPhone($request->get('phone'))
-            ->setLname($request->get('lname'))
             ->setFname($request->get('fname'))
-            ->setCity($request->get('city'))
+            ->setLname($request->get('lname'))
+            ->setUsername($request->get('username'))
             ->setPlainPassword($request->get('password'))
             ->setEmail($request->get('email'))
-            ->setEnabled(true)
+            ->setPhone($request->get('phone'))
+            ->setCity($request->get('city'))
+            ->setEnabled(false)
             ->setRoles(['ROLE_USER'])
             ->setSuperAdmin(false)
         ;
         try {
-            $em = $this->getDoctrine()->getManager();
-            $userEvent = new UserRegisterEvent($user);
-            $this->dispatcher->dispatch('user.registred', $userEvent);
-            $em->persist($user);
-            $em->flush();
-
+            $this->eventDispatcher->dispatch('user_registration.created', new FilterUserRegistrationEvent($user, $request));
+            $userManager->updateUser($user);
+            $user = $this->normalize($user);
         } catch (\Exception $e) {
             return View::create(["error" => $e->getMessage()], 500);
         }
@@ -66,46 +67,52 @@ class AuthController extends AbstractFOSRestController
      *     path="/profile",
      *     name="auth_profile_api"
      * )
+     * @return View
      */
     public function profile()
     {
-        return View::create($this->getUser(), Response::HTTP_OK);
+        $user = $this->getUser();
+        $user = $this->normalize($user);
+        return View::create($user, Response::HTTP_OK);
     }
 
     /**
      * @Rest\Put(
-     *     path="/profile/{id}",
+     *     path="/profile/edit",
      *     name="auth_edit_profile_api"
      * )
      * @param Request $request
-     * @param User $user
      * @param UserManagerInterface $userManager
      * @return View
      */
-    public function editProfile(Request $request, User $user, UserManagerInterface $userManager){
-        if($user){
-            $em = $this->getDoctrine()->getManager();
-            $user = $userManager->updateUser();
-            $user
-                ->setUsername($request->get('username'))
-                ->setPhone($request->get('phone'))
-                ->setLname($request->get('lname'))
-                ->setFname($request->get('fname'))
-                ->setCity($request->get('city'))
-                ->setPlainPassword($request->get('password'))
-                ->setEmail($request->get('email'))
-                ->setEnabled(true)
-                ->setRoles(['ROLE_USER'])
-                ->setSuperAdmin(false)
-            ;
-        try {
-            $em->persist($user);
-            $em->flush();
+    public function profileEdit(Request $request, UserManagerInterface $userManager, UserRepository $userRepository)
+    {
+        $user = $userRepository->find($this->getUser());
+        $user->setlname($request->get('lname'));
+        $user->setfname($request->get('fname'));
+        $user->setBio($request->get('bio'));
 
-        } catch (\Exception $e) {
-            return View::create(["error" => $e->getMessage()], 500);
-        }
-        return View::create($user, Response::HTTP_CREATED);
-        }
+        $userManager->updateUser($user);
+
+        $user = $this->normalize($user);
+        return View::create($user, Response::HTTP_OK);
+    }
+
+    private function normalize($object)
+    {
+        /* Serializer, normalizer exemple */
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $object = $serializer->normalize($object, null,
+            ['attributes' => [
+                'id',
+                'bio',
+                'email',
+                'lastName',
+                'firstName',
+                'username',
+                'roles'
+            ]]);
+        return $object;
     }
 }
