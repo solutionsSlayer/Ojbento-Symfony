@@ -18,7 +18,6 @@ class PriceassocType extends AbstractType
         $tranformer = new AssocToNumberTransformer($this->em);
         $builder
             ->add('value')
-            ->add('assoc', HiddenType::class)
             ->add('type')
         ;
 
