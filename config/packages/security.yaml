@@ -43,6 +43,12 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
+        type:
+            host: api\.ojbento\.fr
+            pattern: ^/type
+            stateless: true
+            anonymous: true
+
         main:
             host: admin\.ojbento\.fr
             access_denied_handler: App\Security\AccessDeniedHandler
@@ -57,5 +63,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY , host: admin\.ojbento\.fr }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY , host: admin\.ojbento\.fr }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, host: admin\.ojbento\.fr }
+        - { path: ^/type, roles: IS_AUTHENTICATED_ANONYMOUSLY, host: api\.ojbento\.fr }
         - { path: ^/redirectionTo, role: IS_AUTHENTICATED_FULLY, host: admin\.ojbento\.fr }
         - { path: ^/, role: ROLE_ADMIN , host: admin\.ojbento\.fr }

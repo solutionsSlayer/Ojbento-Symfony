@@ -26,7 +26,9 @@ class AssocType extends AbstractType
                 "class" => Type::class
             ])
             ->add('quantity')
-            ->add('image', ImageType::class)
+            ->add('image', ImageType::class, [
+                'required' => false
+            ])
             ->add('isDish')
             ->add('description')
             ->add('composition')

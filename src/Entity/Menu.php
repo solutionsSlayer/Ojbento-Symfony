@@ -35,7 +35,7 @@ class Menu
     private $prices;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Assoc")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Assoc", cascade={"persist"}, mappedBy="menu", orphanRemoval=true)
      */
     private $assocs;
 
