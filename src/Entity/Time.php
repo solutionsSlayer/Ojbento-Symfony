@@ -42,4 +42,5 @@ class Time
     {
         return $this->getHourCommand();
     }
+
 }

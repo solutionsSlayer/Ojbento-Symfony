@@ -4,9 +4,12 @@ namespace App\ApiController;
 
 use App\Entity\Command;
 use App\Form\CommandType;
+use App\Form\StateType;
 use App\Repository\CommandassocRepository;
 use App\Repository\CommandmenuRepository;
 use App\Repository\CommandRepository;
+use App\Repository\StateRepository;
+use App\Repository\TimeRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
@@ -73,6 +76,8 @@ class CommandController extends AbstractFOSRestController
             $d = $serializer->normalize($command, null,
                 ['attributes' => [
                     'id',
+                    'time' => ['hourCommand'],
+                    'state' => ['name'],
                     'user'=>['id', 'username'],
                     'commandassocs' => ['id', 'quantity',
                         'assoc' => ['id', 'quantity', 'isDish',
@@ -99,7 +104,7 @@ class CommandController extends AbstractFOSRestController
      * @Rest\View()
      * @return View;
      */
-    public function create(Request $request, CommandassocRepository $commandassocRepository, CommandmenuRepository $commandmenuRepository ): View
+    public function create(Request $request,StateRepository $stateRepository,TimeRepository $timeRepository, CommandassocRepository $commandassocRepository, CommandmenuRepository $commandmenuRepository ): View
     {
         $serializer = new Serializer([new ObjectNormalizer()]);
         $em = $this->getDoctrine()->getManager();
@@ -117,6 +122,10 @@ class CommandController extends AbstractFOSRestController
             $command->addCommandmenu($cm);
             $em->persist($cm);
         }
+        $state = $stateRepository->find('4');
+        $command->setState($state);
+        $time = $timeRepository->find($request->get('hour_command'));
+        $command->setTime($time);
         $em->persist($command);
         $em->flush();
         $d = $serializer->normalize($command, null,
