@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 /**
  * @Rest\Route("/type", host="api.ojbento.fr")
@@ -36,6 +37,7 @@ class TypeController extends AbstractFOSRestController
         $results = $typeRepository->findAll();
         // In case our GET was a success we need to return a 200 HTTP OK
         // response with the collection of task object
+
         $serializer = new Serializer([new ObjectNormalizer()]);
 
         $types = [];
@@ -78,7 +80,10 @@ class TypeController extends AbstractFOSRestController
         $results = $typeRepository->findAll();
         // In case our GET was a success we need to return a 200 HTTP OK
         // response with the collection of task object
-        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(2);
+        $serializer = new Serializer([$normalizer]);
 
         $types = [];
         foreach ($results as $type) {
@@ -86,7 +91,7 @@ class TypeController extends AbstractFOSRestController
                 ['attributes' => [
                     'id',
                     'name',
-                    'assocs' => ['id', 'quantity', 'isDish', 'description', 'composition', 'product' => [
+                    'assocs' => ['id', 'type'=>['name'],'quantity', 'isDish', 'description', 'composition', 'product' => [
                         'id', 'name'],
                         'image' => [
                             'id',
