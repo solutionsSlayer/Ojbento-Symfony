@@ -36,8 +36,8 @@ class MenuController extends  AbstractFOSRestController
                     'name',
                     'isMidi',
                     'assocs' => [
-                        'id', 'type'=>['id','name'], 'description', 'composition'],
-                     'prices'=>['id', 'value', 'type'=>['name']]
+                        'id', 'type'=>['id','name'], 'description', 'composition', 'quantity', 'product'=>['id','name']],
+                    'prices'=>['id', 'value', 'type'=>['id','name', 'value']]
                 ]]);
             array_push( $menus, $d);
         }
