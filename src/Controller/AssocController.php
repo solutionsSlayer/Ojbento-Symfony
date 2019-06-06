@@ -108,7 +108,7 @@ class AssocController extends AbstractController
                 $image->setImgpath($this->getParameter('img_path').'/'.$fileName);
                 $entityManager->persist($image);
             }
-            if (empty($image->getId()) && !$file ){
+            if ($image && empty($image->getId()) && !$file ){
                 $assoc->setImage(null);
             }
 

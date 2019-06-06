@@ -55,7 +55,8 @@ class TypeController extends AbstractFOSRestController
                             'name'],
                         'prices' => [
                             'id',
-                            'value'
+                            'value',
+                            'type' =>['name', 'value']
                         ]
                     ]
                 ]]);
@@ -94,7 +95,8 @@ class TypeController extends AbstractFOSRestController
                             'alt'],
                         'prices' => [
                             'id',
-                            'value'
+                            'value',
+                            'type' =>['name', 'value']
                         ]
                     ]
                 ]
