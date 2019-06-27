@@ -59,6 +59,11 @@ class Assoc
     private $prices;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Menu", mappedBy="assocs")
+     */
+    private $menus;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Allergen")
      */
     private $allergens;
@@ -67,6 +72,7 @@ class Assoc
     {
         $this->prices = new ArrayCollection();
         $this->allergens = new ArrayCollection();
+        $this->menus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,6 +220,32 @@ class Assoc
     {
         if ($this->allergens->contains($allergen)) {
             $this->allergens->removeElement($allergen);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Menu[]
+     */
+    public function getMenus(): Collection
+    {
+        return $this->menus;
+    }
+
+    public function addMenu(Menu $menu): self
+    {
+        if (!$this->menus->contains($menu)) {
+            $this->menus[] = $menu;
+        }
+
+        return $this;
+    }
+
+    public function removeMenu(Menu $menu): self
+    {
+        if ($this->menus->contains($menu)) {
+            $this->menus->removeElement($menu);
         }
 
         return $this;

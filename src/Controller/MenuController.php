@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Assoc;
 use App\Entity\Menu;
+use App\Form\AssocType;
 use App\Form\MenuType;
+use App\Repository\AssocRepository;
 use App\Repository\MenuRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,13 +31,19 @@ class MenuController extends AbstractController
     /**
      * @Route("/new", name="menu_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, AssocRepository $assocRepository): Response
     {
+        $em = $this->getDoctrine()->getManager();
         $menu = new Menu();
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            //$assocs= $request->get('assocs');
+
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($menu);
             $entityManager->flush();

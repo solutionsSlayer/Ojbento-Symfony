@@ -35,7 +35,7 @@ class Menu
     private $prices;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Assoc", cascade={"persist"}, mappedBy="menu", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Assoc", cascade={"all"}, inversedBy="menus", orphanRemoval=true)
      */
     private $assocs;
 
@@ -117,6 +117,7 @@ class Menu
     {
         if (!$this->assocs->contains($assoc)) {
             $this->assocs[] = $assoc;
+            $assoc->addMenu($this);
         }
 
         return $this;
@@ -126,6 +127,7 @@ class Menu
     {
         if ($this->assocs->contains($assoc)) {
             $this->assocs->removeElement($assoc);
+            $assoc->removeMenu($this);
         }
 
         return $this;

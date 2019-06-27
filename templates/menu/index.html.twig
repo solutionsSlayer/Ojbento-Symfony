@@ -21,7 +21,12 @@
             <tr>
                 <td>{{ menu.id }}</td>
                 <td>{{ menu.name }}</td>
-                <td>{% for assoc in menu.assocs %} <div> {{ assoc.quantity }} {{ assoc.type }} {{ assoc.product.name }}</div>{% endfor %}</td>
+                <td>{% if menu.assocs %}
+                       {% for assoc in menu.assocs %}
+                            <div> {{ assoc.quantity }} {{ assoc.type }} {{ assoc.product.name }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </td>
                 <td>{% for price in menu.prices %} <div> {{ price.value }}€ {{ price.type }}</div>{% endfor %}</td>
                 <td>{{ menu.isMidi ? 'Yes' : 'No' }}</td>
                 <td>
