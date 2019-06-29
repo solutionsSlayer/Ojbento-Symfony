@@ -37,17 +37,11 @@ security:
             host: api\.ojbento\.fr
             pattern: ^/
             stateless: true
-            anonymous: false
+            anonymous: true
             provider: fos_userbundle
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
-
-        type:
-            host: api\.ojbento\.fr
-            pattern: ^/type
-            stateless: true
-            anonymous: true
 
         main:
             host: admin\.ojbento\.fr
