@@ -40,10 +40,12 @@ class AuthController extends AbstractFOSRestController
     public function register(Request $request, UserManagerInterface $userManager)
     {
         $user = new User();
+        $lname = $request->get('lname');
+        $fname = $request->get('fname');
         $user
             ->setFname($request->get('fname'))
             ->setLname($request->get('lname'))
-            ->setUsername($request->get('username'))
+            ->setUsername( $lname.' '. $fname)
             ->setPlainPassword($request->get('password'))
             ->setEmail($request->get('email'))
             ->setPhone($request->get('phone'))
