@@ -35,6 +35,7 @@ class AssocController extends  AbstractFOSRestController
                     'id',
                     'quantity',
                     'isDish',
+                    'forMenu',
                     'description',
                     'composition',
                     'product' => [

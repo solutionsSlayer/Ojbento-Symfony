@@ -9,16 +9,22 @@ use App\Entity\Allergen;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Type;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
+
 class AssocType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+            $builder
+                ->add('forMenu', HiddenType::class,[
+                    'attr' => array('class' => 'forMenu')])
+
+
             ->add('product', EntityType::class, [
                 "class" => Product::class
                     ])
@@ -30,6 +36,8 @@ class AssocType extends AbstractType
                 'required' => false
             ])
             ->add('isDish')
+
+
             ->add('description')
             ->add('composition')
             ->add('prices', CollectionType::class, [
@@ -48,7 +56,6 @@ class AssocType extends AbstractType
                 'expanded'=> true,
                 'multiple'=> true
             ])
-
 
         ;
     }

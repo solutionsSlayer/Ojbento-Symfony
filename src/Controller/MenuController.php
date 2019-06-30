@@ -33,17 +33,12 @@ class MenuController extends AbstractController
      */
     public function new(Request $request, AssocRepository $assocRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
         $menu = new Menu();
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$assocs= $request->get('assocs');
-
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($menu);
             $entityManager->flush();

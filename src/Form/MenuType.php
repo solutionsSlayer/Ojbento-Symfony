@@ -6,8 +6,10 @@ use App\Entity\Menu;
 use App\Form\PricemenuType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class MenuType extends AbstractType
 {
@@ -17,10 +19,12 @@ class MenuType extends AbstractType
             ->add('name')
             ->add('isMidi')
             ->add('assocs',CollectionType::class, [
+
                 'entry_type' => AssocType::class,
                 'entry_options' => [
                     'label' => false,
                     'attr' => array('class' => 'assoc')
+
                 ],
                 'prototype' => true,
                 'allow_add' => true,

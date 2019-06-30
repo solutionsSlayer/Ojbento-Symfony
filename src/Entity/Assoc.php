@@ -68,6 +68,11 @@ class Assoc
      */
     private $allergens;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $forMenu;
+
     public function __construct()
     {
         $this->prices = new ArrayCollection();
@@ -247,6 +252,18 @@ class Assoc
         if ($this->menus->contains($menu)) {
             $this->menus->removeElement($menu);
         }
+
+        return $this;
+    }
+
+    public function getForMenu(): ?bool
+    {
+        return $this->forMenu;
+    }
+
+    public function setForMenu(bool $forMenu): self
+    {
+        $this->forMenu = $forMenu;
 
         return $this;
     }

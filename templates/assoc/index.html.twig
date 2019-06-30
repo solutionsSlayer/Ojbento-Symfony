@@ -16,6 +16,7 @@
                 <th>IsDish</th>
                 <th>Description</th>
                 <th>Composition</th>
+                <th>forMenu</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{ assoc.isDish ? 'Yes' : 'No' }}</td>
                 <td>{{ assoc.description }}</td>
                 <td>{{ assoc.composition }}</td>
+                <td>{{ assoc.forMenu ? 'true' : 'false' }}</td>
                 <td>
                     <a href="{{ path('assoc_show', {'id': assoc.id}) }}">show</a>
                     <a href="{{ path('assoc_edit', {'id': assoc.id}) }}">edit</a>

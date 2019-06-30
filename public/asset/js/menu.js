@@ -33,6 +33,7 @@ function addMenuFrom($collectionHolder, $newItemLi) {
     var $newFormLi = $('<div></div>').append(newForm);
     $newItemLi.before($newFormLi);
     addAssocFormDelete($newFormLi);
+    $('.forMenu').val('1');
 }
 
 var $collectionHolder;

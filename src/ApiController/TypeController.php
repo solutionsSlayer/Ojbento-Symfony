@@ -52,6 +52,7 @@ class TypeController extends AbstractFOSRestController
                         'isDish',
                         'description',
                         'composition',
+                        'forMenu',
                         'product' => [
                             'id',
                             'name'],
@@ -98,6 +99,7 @@ class TypeController extends AbstractFOSRestController
                             'path',
                             'imgpath',
                             'alt'],
+                        'forMenu',
                         'prices' => [
                             'id',
                             'value',
