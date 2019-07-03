@@ -36,7 +36,7 @@ class Command
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Time")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $time;
 

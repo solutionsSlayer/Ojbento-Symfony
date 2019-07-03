@@ -3,8 +3,10 @@
 namespace App\ApiController;
 
 use App\Entity\Command;
+use App\Entity\Commandassoc;
 use App\Form\CommandType;
 use App\Form\StateType;
+use App\Repository\AssocRepository;
 use App\Repository\CommandassocRepository;
 use App\Repository\CommandmenuRepository;
 use App\Repository\CommandRepository;
@@ -104,13 +106,37 @@ class CommandController extends AbstractFOSRestController
      * @Rest\View()
      * @return View;
      */
-    public function create(Request $request,StateRepository $stateRepository,TimeRepository $timeRepository, CommandassocRepository $commandassocRepository, CommandmenuRepository $commandmenuRepository ): View
+    public function create(Request $request,StateRepository $stateRepository,TimeRepository $timeRepository, CommandassocRepository $commandassocRepository, CommandmenuRepository $commandmenuRepository , AssocRepository $assocRepository): View
     {
         $serializer = new Serializer([new ObjectNormalizer()]);
         $em = $this->getDoctrine()->getManager();
         $command = new Command();
         $command->setUser($this->getUser());
-        $commandassocId =$request->get('commandassocs');
+
+        $state = $stateRepository->findOneBy(["name"=>"START"]);
+        $command->setState($state);
+        $rows =$request->get('cartrows');
+
+
+        foreach ($rows as $row){
+            if ($row['isMenuRow'] == "true") {
+
+            } else {
+                $assocId = $row['assoc']['id'];
+                $assoc = $assocRepository->find($assocId);
+                $commandAssoc = new Commandassoc();
+                $commandAssoc->setAssoc($assoc);
+                $commandAssoc->setQuantity($row['nbCart']);
+                $commandAssoc->setCommand($command);
+                $command->addCommandassoc($commandAssoc);
+                $em->persist($commandAssoc);
+            }
+        }
+
+        $em->persist($command);
+        $em->flush();
+
+        /*$commandassocId =$request->get('commandassocs');
         foreach ($commandassocId as $commandassoc){
             $ca = $commandassocRepository->find($commandassoc);
             $command->addCommandassoc($ca);
@@ -121,8 +147,8 @@ class CommandController extends AbstractFOSRestController
             $cm = $commandmenuRepository->find($commandmenu);
             $command->addCommandmenu($cm);
             $em->persist($cm);
-        }
-        $state = $stateRepository->find('4');
+        }*/
+        /*$state = $stateRepository->find('4');
         $command->setState($state);
         $time = $timeRepository->find($request->get('hour_command'));
         $command->setTime($time);
@@ -142,8 +168,8 @@ class CommandController extends AbstractFOSRestController
                 ],
                 'commandmenus'=> ['id', 'quantity',
                     'menu' =>['id', 'name']]
-            ]]);
-        return View::create($d, Response::HTTP_CREATED);
+            ]]);*/
+        return View::create($command, Response::HTTP_CREATED);
     }
 
 //    /**
