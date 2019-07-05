@@ -38,6 +38,8 @@ class AssocController extends  AbstractFOSRestController
                     'forMenu',
                     'description',
                     'composition',
+                    'image' => [ 'id', 'imgpath'],
+                    'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']],
                     'product' => [
                         'id', 'name'],
                     'type' =>['id', 'name'],
