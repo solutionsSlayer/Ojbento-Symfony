@@ -21,6 +21,16 @@ class Time
      */
     private $hour_command;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $value;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $midi;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -41,6 +51,30 @@ class Time
     public function __toString()
     {
         return $this->getHourCommand();
+    }
+
+    public function getValue(): ?int
+    {
+        return $this->value;
+    }
+
+    public function setValue(int $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function getMidi(): ?bool
+    {
+        return $this->midi;
+    }
+
+    public function setMidi(bool $midi): self
+    {
+        $this->midi = $midi;
+
+        return $this;
     }
 
 }

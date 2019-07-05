@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ command.id }}</td>
                 <td>{{ command.state.name }}</td>
-                <td>{{ command.state.datetime | date("F j, Y, g:i a") }}</td>
+                <td>{{ command.datetime | date("F j, Y, g:i a") }}</td>
                 <td>
                     <a href="{{ path('command_show', {'id': command.id}) }}">show</a>
                     <a href="{{ path('command_edit', {'id': command.id}) }}">edit</a>

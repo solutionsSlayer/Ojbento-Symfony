@@ -115,7 +115,7 @@ class CommandController extends AbstractFOSRestController
         $command = new Command();
         $command->setUser($this->getUser());
 
-        $state = $stateRepository->findOneBy(["name"=>""]);
+        $state = $stateRepository->findOneBy(["value"=>"1"]);
         $command->setState($state);
         $rows =$request->get('cartrows');
 

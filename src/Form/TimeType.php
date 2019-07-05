@@ -17,6 +17,8 @@ class TimeType extends AbstractType
     {
         $builder
             ->add('hour_command')
+            ->add('value')
+            ->add('midi')
         ;
     }
 
