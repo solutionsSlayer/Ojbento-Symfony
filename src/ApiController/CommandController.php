@@ -118,10 +118,12 @@ class CommandController extends AbstractFOSRestController
         $state = $stateRepository->findOneBy(["value"=>"1"]);
         $command->setState($state);
         $rows =$request->get('cartrows');
+        $requested_hour = $request->get('requestedHour');
+        $time = $timeRepository->find($requested_hour['id']);
 
-
+        $command->setTime($time);
         foreach ($rows as $row){
-            if ($row['isMenuRow'] == "true") {
+            if ($row['isMenuRow']) {
                 $menuId = $row['menu']['id'];
                 $menu = $menuRepository->find($menuId);
                 $commandMenu = new Commandmenu();
@@ -140,6 +142,7 @@ class CommandController extends AbstractFOSRestController
                 $command->addCommandassoc($commandAssoc);
                 $em->persist($commandAssoc);
             }
+
         }
 
         $em->persist($command);

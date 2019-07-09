@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Assoc index</h1>
-
+    <a href="{{ path('assoc_new') }}">Create new</a>
     <table class="table">
         <thead>
             <tr>
@@ -21,7 +21,9 @@
             </tr>
         </thead>
         <tbody>
+
         {% for assoc in assocs %}
+            {%  if assoc.forMenu != true%}
             <tr>
                 <td>{{ assoc.id }}</td>
                 <td>{{ assoc.quantity }}</td>
@@ -37,6 +39,7 @@
                     <a href="{{ path('assoc_edit', {'id': assoc.id}) }}">edit</a>
                 </td>
             </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>
