@@ -73,7 +73,7 @@ class AuthController extends AbstractFOSRestController
     public function profile()
     {
         $user = $this->getUser();
-
+        $user = $this->normalize($user);
         return View::create($user, Response::HTTP_OK);
     }
 
@@ -89,8 +89,12 @@ class AuthController extends AbstractFOSRestController
     public function profileEdit(Request $request, UserManagerInterface $userManager, UserRepository $userRepository)
     {
         $user = $userRepository->find($this->getUser());
-        $user->setlname($request->get('lname'));
-        $user->setfname($request->get('fname'));
+        $user->setlname($request->get('fname'));
+        $user->setfname($request->get('lanme'));
+        $user->setfname($request->get('email'));
+        $user->setfname($request->get('phone'));
+        $user->setfname($request->get('city'));
+        $user->setfname($request->get('password'));
 
         $userManager->updateUser($user);
 
@@ -106,12 +110,12 @@ class AuthController extends AbstractFOSRestController
         $object = $serializer->normalize($object, null,
             ['attributes' => [
                 'id',
-                'bio',
+                'fname',
+                'lname',
                 'email',
-                'Lname',
-                'Fname',
-                'username',
-                'roles'
+                'phone',
+                'city',
+                'password'
             ]]);
         return $object;
     }

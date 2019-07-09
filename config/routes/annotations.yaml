@@ -1,6 +1,6 @@
 to_ng:
     path: /
-    host: 'localhost:4200'
+    host: 'http://localhost:4200/login'
     defaults:
         url: 'http://localhost:4200/login'
 
