@@ -73,8 +73,39 @@ class AuthController extends AbstractFOSRestController
     public function profile()
     {
         $user = $this->getUser();
+
         $user = $this->normalize($user);
         return View::create($user, Response::HTTP_OK);
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $object = $serializer->normalize($user, null,
+            ['attributes' => [
+                'id',
+                'email',
+                'username',
+                'city',
+                'fname',
+                'lname',
+                'commands' =>['commandassocs' =>
+                    ['id', 'quantity',
+                    'assoc' =>
+                        ['id', 'quantity', 'isDish',
+                        'product'=>
+                            ['id', 'name'],
+                        'type'=>
+                            ['id', 'name'],
+                        'prices'=>
+                            ['id', 'value',
+                            'type'=>
+                                ['name', 'id']],
+                    ]
+                ],
+                    'commandmenus'=> ['id', 'quantity',
+                        'menu' =>['id', 'name']]
+
+            ]]]);
+        return View::create($object, Response::HTTP_OK);
+
     }
 
     /**

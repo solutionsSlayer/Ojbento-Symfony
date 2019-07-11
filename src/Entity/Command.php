@@ -46,10 +46,16 @@ class Command
      */
     private $state;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $datetime;
+
     public function __construct()
     {
         $this->commandassocs = new ArrayCollection();
         $this->commandmenus = new ArrayCollection();
+        $this->datetime = new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -100,6 +106,17 @@ class Command
         return $this;
     }
 
+    public function getDatetime(): ?\DateTimeInterface
+    {
+        return $this->datetime;
+    }
+
+    public function setDatetime(\DateTimeInterface $datetime): self
+    {
+        $this->datetime = $datetime;
+
+        return $this;
+    }
     /**
      * @return Collection|Commandmenu[]
      */
