@@ -89,12 +89,12 @@ class AuthController extends AbstractFOSRestController
     public function profileEdit(Request $request, UserManagerInterface $userManager, UserRepository $userRepository)
     {
         $user = $userRepository->find($this->getUser());
-        $user->setlname($request->get('fname'));
-        $user->setfname($request->get('lanme'));
-        $user->setfname($request->get('email'));
-        $user->setfname($request->get('phone'));
-        $user->setfname($request->get('city'));
-        $user->setfname($request->get('password'));
+        $user->setLname($request->get('lname'));
+        $user->setFname($request->get('fname'));
+        $user->setEmail($request->get('email'));
+        $user->setPhone($request->get('phone'));
+        $user->setCity($request->get('city'));
+        $user->setPlainPassword($request->get('password'));
 
         $userManager->updateUser($user);
 

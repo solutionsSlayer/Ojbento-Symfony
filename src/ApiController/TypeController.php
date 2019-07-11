@@ -60,7 +60,8 @@ class TypeController extends AbstractFOSRestController
                             'id',
                             'value',
                             'type' =>['name', 'value']
-                        ]
+                        ],
+                        'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']]
                     ]
                 ]]);
             array_push($types, $d);
@@ -103,8 +104,9 @@ class TypeController extends AbstractFOSRestController
                         'prices' => [
                             'id',
                             'value',
-                            'type' =>['name', 'value']
-                        ]
+                            'type' =>['name', 'value'],
+                        ],
+                        'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']]
                     ]
                 ]
                 ]);

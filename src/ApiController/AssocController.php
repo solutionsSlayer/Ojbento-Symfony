@@ -39,12 +39,12 @@ class AssocController extends  AbstractFOSRestController
                     'description',
                     'composition',
                     'image' => [ 'id', 'imgpath'],
-                    'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']],
                     'product' => [
                         'id', 'name'],
                     'type' =>['id', 'name'],
                     'prices'=>['id', 'value', 'type'=>['name']]
-                ]
+                ],
+                    'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']]
                 ]);
             array_push( $assocs, $d);
         }
