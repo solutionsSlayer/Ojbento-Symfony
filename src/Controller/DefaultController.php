@@ -38,6 +38,6 @@ class DefaultController extends AbstractController
             return $this->redirectToRoute('fos_user_profile_show');
         }
 
-        return $this->redirectToRoute('to_ng');
+        return $this->redirectToRoute('http://localhost:4200/login');
     }
 }

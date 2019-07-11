@@ -21,12 +21,10 @@ class User extends BaseUser
      */
     protected $id;
 
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Command", mappedBy="user", orphanRemoval=true)
      */
     private $commands;
-
 
     /**
      * @ORM\Column(type="string")
