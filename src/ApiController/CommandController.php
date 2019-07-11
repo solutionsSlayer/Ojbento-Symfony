@@ -120,7 +120,8 @@ class CommandController extends AbstractFOSRestController
         $rows =$request->get('cartrows');
         $requested_hour = $request->get('requestedHour');
         $time = $timeRepository->find($requested_hour['id']);
-
+        $price = $request->get('price');
+        $command->settotalPrice($price);
         $command->setTime($time);
         foreach ($rows as $row){
             if ($row['isMenuRow']) {

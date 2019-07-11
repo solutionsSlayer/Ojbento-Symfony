@@ -51,6 +51,11 @@ class Command
      */
     private $datetime;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $totalPrice;
+
     public function __construct()
     {
         $this->commandassocs = new ArrayCollection();
@@ -168,6 +173,18 @@ class Command
     public function setState(?State $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice($totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
