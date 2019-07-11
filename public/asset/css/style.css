@@ -1,0 +1,41 @@
+#header {
+    background: #000;
+    border-radius: 0;
+    margin: 0;
+    position: relative;
+    z-index: 999;
+}
+#sidebar {
+    position: absolute;
+    z-index: 99;
+    width: 220px;
+    min-height: 100%;
+    background: #ee1c22;
+    padding-top: 50px;
+    margin-top: -50px;
+}
+
+#sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+#sidebar ul li {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+#sidebar ul li a {
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 12px 12px;
+}
+#sidebar ul li div{
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    text-align: end;
+    margin-right: 20px;
+}
