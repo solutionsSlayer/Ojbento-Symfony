@@ -38,11 +38,13 @@ class AssocController extends  AbstractFOSRestController
                     'forMenu',
                     'description',
                     'composition',
+                    'image' => [ 'id', 'imgpath'],
                     'product' => [
                         'id', 'name'],
                     'type' =>['id', 'name'],
                     'prices'=>['id', 'value', 'type'=>['name']]
-                ]
+                ],
+                    'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']]
                 ]);
             array_push( $assocs, $d);
         }
