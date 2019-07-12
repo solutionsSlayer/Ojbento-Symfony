@@ -3,6 +3,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\CommandRepository;
 use App\Repository\UserRepository;
+use FOS\UserBundle\Model\UserManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,10 +18,11 @@ class DefaultController extends AbstractController
      */
     public function index(CommandRepository $commandRepository, UserRepository $user)
     {
-        $users = $user;
+        $users = $user->findAll();
         $commands = $commandRepository->findAll();
         return $this->render('base.html.twig', [
             'users' => $users,
+            'userCountActive' => 0,
             'usercount' => 0,
             'commands' => $commands,
             'count' => 0,

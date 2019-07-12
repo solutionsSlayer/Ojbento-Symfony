@@ -9,26 +9,41 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Etat</th>
+                <th>Heure</th>
+                <th>Utilisateurs</th>
                 <th>Date</th>
+                <th>Commandes</th>
+                <th>Prix</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for command in commands %}
+            {% if command.state.value == 1 %}
             <tr>
                 <td>{{ command.id }}</td>
-                <td>{{ command.state.name }}</td>
+                <td>{{ command.time.hourCommand }}</td>
+                <td>{{ command.user.Lname }} {{ command.user.Lname }}</td>
                 <td>{{ command.datetime | date("F j, Y, g:i a") }}</td>
+                <td> <div>{% if command.commandAssocs%}Associations:{% for assoc in command.commandAssocs %}
+                    <div>{{ assoc.quantity }}{{ assoc.assoc.type.name }} {{ assoc.assoc.product.name }}</div>
+            {%  endfor %}{% endif %}</div>
+            <div>{% if command.commandMenus %}Menus: {% for menu in command.commandMenus %}
+                    <div>{{ menu.quantity }}{{ menu.menu.name }}</div>
+                {%  endfor %}{% endif %}</div>
+            </div> </td>
+{#                <td>{{command.totalprice}} </td>#}
                 <td>
                     <a href="{{ path('command_show', {'id': command.id}) }}">show</a>
                     <a href="{{ path('command_edit', {'id': command.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
+            {%  endif %}
+            {% else %}
             <tr>
-                <td colspan="2">no records found</td>
+                <td colspan="2">Pas de commande en cours</td>
             </tr>
+
         {% endfor %}
         </tbody>
     </table>

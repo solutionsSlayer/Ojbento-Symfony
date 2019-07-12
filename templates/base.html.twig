@@ -54,9 +54,9 @@
                     <a href="{{ path("allergen_index") }}">Allergènes</a>
                 </li>
                 <li>
-                    <a href="{{ path("fos_user_security_logout") }}">Utilisateur</a>
+                    <a href="{{ path("user_index") }}">Utilisateurs</a>
                     <div>
-                        <a href="{{ path("fos_user_security_logout") }}">Lister les utilisateur</a><a href=""> </a>
+                        <a href="{{ path("user_index") }}">Lister les utilisateurs</a>
                     </div>
                 </li>
                 <li>
@@ -86,14 +86,10 @@
         </div>
         <div>
             {% for user in users %}
-                {% if (user) %}
                     {% set usercount = usercount + 1 %}
-                {% else %}
-                    {% set usercount = usercount + 0 %}
-                {% endif %}
             {% endfor %}
             {% if count != 0 %}
-                Vous avez {{ usercount }} commandes en attente.
+                Vous avez {{ usercount }} utilisateurs enregistrés.
             {% else %}
                 Vous n'avez pas de commande en attente.
             {% endif %}
