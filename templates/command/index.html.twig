@@ -32,7 +32,7 @@
                     <div>{{ menu.quantity }}{{ menu.menu.name }}</div>
                 {%  endfor %}{% endif %}</div>
             </div> </td>
-{#                <td>{{command.totalprice}} </td>#}
+                <td>{{command.totalprice}} </td>
                 <td>
                     <a href="{{ path('command_show', {'id': command.id}) }}">show</a>
                     <a href="{{ path('command_edit', {'id': command.id}) }}">edit</a>
