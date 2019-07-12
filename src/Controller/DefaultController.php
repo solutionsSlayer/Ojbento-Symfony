@@ -1,5 +1,8 @@
 <?php
 namespace App\Controller;
+use App\Entity\User;
+use App\Repository\CommandRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,9 +15,15 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(CommandRepository $commandRepository, UserRepository $user)
     {
+        $users = $user;
+        $commands = $commandRepository->findAll();
         return $this->render('base.html.twig', [
+            'users' => $users,
+            'usercount' => 0,
+            'commands' => $commands,
+            'count' => 0,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR]);
     }
     /**
@@ -23,7 +32,9 @@ class DefaultController extends AbstractController
      */
     public function indexAdmin()
     {
+
         return $this->render('base.html.twig', [
+
             'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR]);
     }
 

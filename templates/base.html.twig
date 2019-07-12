@@ -23,23 +23,87 @@
         </div>
     </div>
 </nav>
-<div id="sidebar">
-    <div data-spy="affix" data-offset-top="50" class="affix-top">
-        <ul>
-            <li>Produits
-                <div>
-                <span> Lister les produits</span>
-                <span> Créer un produits </span>
+<div>
+    <div id="sidebar">
+        <div data-spy="affix" data-offset-top="50" class="affix-top">
+            <ul>
+                <li> <a href="{{ path("homepage") }}">Dashboard</a></li>
+                <li> <a href="{{ path("command_index") }}">Commandes</a>
+                    <div>
+                        <a href="{{ path("command_index") }}">Commandes en attente</a>
+{#                        <a href="{{ path("") }}"> </a>#}
                     </div>
-            <li>
-            </li>
-            </li>
-        </ul>
+                </li>
+                <li><a href="{{ path("assoc_index") }}">Produits</a>
+                    <div>
+                        <a href="{{ path("assoc_index") }}"> Lister les associations</a>
+                        <a href="{{ path("assoc_new") }}"> Créer une association</a>
+                        <a href="{{ path("product_index") }}"> Lister/Créer les produits</a>
+                        <a href="{{ path("type_index") }}"> Lister/Créer un type</a>
+
+                    </div>
+                </li>
+                <li>
+                    <a href="{{ path("menu_index") }}">Menus</a>
+                    <div>
+                        <a href="{{ path("menu_index") }}">Lister les menus</a>
+                        <a href="{{ path("menu_new") }}"> Créer un menu</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="{{ path("allergen_index") }}">Allergènes</a>
+                </li>
+                <li>
+                    <a href="{{ path("fos_user_security_logout") }}">Utilisateur</a>
+                    <div>
+                        <a href="{{ path("fos_user_security_logout") }}">Lister les utilisateur</a><a href=""> </a>
+                    </div>
+                </li>
+                <li>
+                    <a href="{{ path("time_index") }}">Horaires</a>
+                    <div>
+                        <a href="{{ path("time_index") }}"> Lister les horaires</a>
+                        <a href="{{ path("time_new") }}"> Créer une horaire</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="main">
+    {% block body %}
+        <div>{% for command in commands %}
+                {% if (command.state.value==1) %}
+                    {% set count = count + 1 %}
+                {% else %}
+                    {% set count = count + 0 %}
+                {% endif %}
+            {% endfor %}
+            {% if count != 0 %}
+                Vous avez {{ count }} commandes en attente.
+            {% else %}
+                Vous n'avez pas de commande en attente.
+            {% endif %}
+        </div>
+        <div>
+            {% for user in users %}
+                {% if (user) %}
+                    {% set usercount = usercount + 1 %}
+                {% else %}
+                    {% set usercount = usercount + 0 %}
+                {% endif %}
+            {% endfor %}
+            {% if count != 0 %}
+                Vous avez {{ usercount }} commandes en attente.
+            {% else %}
+                Vous n'avez pas de commande en attente.
+            {% endif %}
+        </div>
+    {% endblock %}
     </div>
 </div>
-{% block body %}
 
-{% endblock %}
+
+
 <script src ="{{ (asset('asset/js/jquery.js')) }}" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

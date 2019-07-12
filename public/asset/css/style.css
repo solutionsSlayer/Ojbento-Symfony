@@ -5,6 +5,12 @@
     position: relative;
     z-index: 999;
 }
+#header a {
+    text-decoration: none;
+}
+#header a span{
+    color: white;
+}
 #sidebar {
     position: absolute;
     z-index: 99;
@@ -20,22 +26,44 @@
     padding: 0;
 }
 #sidebar ul li {
-    text-align: center;
     color: white;
     font-size: 20px;
+    border-bottom: solid white 2px;
 }
 #sidebar ul li a {
     display: block;
     font-size: 16px;
+    border-bottom: solid white 1px;
     color: #fff;
     text-decoration: none;
-    text-transform: uppercase;
-    padding: 12px 12px;
+    text-transform: none;
+    padding: 7px 20px;
 }
-#sidebar ul li div{
+#sidebar ul li div {
     display: flex;
     flex-direction: column;
-    font-size: 15px;
+    justify-content: center;
+    text-transform: none;
+    font-size: 12px;
     text-align: end;
-    margin-right: 20px;
+    padding-right: 20px;
+    background: #984c4e;
+}
+
+#sidebar ul li div a{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    text-transform: none;
+    font-size: 12px;
+    text-align: end;
+    margin: 0 0 0 20px;
+    padding: 2px;
+}
+#sidebar ul li div a:last-child{
+    border:none
+}
+#main{
+    margin-left: 220px;
+    padding: 20px 15px 40px;
 }
