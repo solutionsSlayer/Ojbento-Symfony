@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use App\Entity\Command;
 use App\Form\CommandType;
 use App\Repository\CommandRepository;
@@ -85,7 +86,7 @@ class CommandController extends AbstractController
     /**
      * @Route("/{id}", name="command_edit", methods={"PATCH"})
      */
-    public function patch(Request $request, Command $command): View
+    public function patch(Request $request, Command $command): Response
     {
         if ($command){
             $form = $this->createForm(CommandType::class, $command);
@@ -94,7 +95,7 @@ class CommandController extends AbstractController
             $em->persist($command);
             $em->flush();
         }
-
+        return $this->redirectToRoute('command_index');
     }
     /**
      * @Route("/{id}", name="command_delete", methods={"DELETE"})
