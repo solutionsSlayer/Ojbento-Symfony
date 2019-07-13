@@ -12,7 +12,7 @@ fos_user:
     mailer: fos_user.mailer.twig_swift
   resetting:
     email:
-      template: FOSUserBundle:Registration:email.txt.twig
+      template:   FOSUserBundle:Resetting:email.txt.twig
   from_email:
     address: "contact@sushi.fr"
     sender_name: "contact@sushi.fr"

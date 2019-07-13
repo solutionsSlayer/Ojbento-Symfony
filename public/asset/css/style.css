@@ -76,6 +76,22 @@
     border-bottom: 1px solid rgba(0, 0, 0, .65);
 }
 
+.email-headband-welcome {
+    margin-bottom: 20px;
+    background: url("../../img/mail/bienvenue.jpg") center / cover no-repeat;
+    min-height: 200px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, .65);
+}
+
+.email-headband-security {
+    margin-bottom: 20px;
+    background: url("../../img/mail/security.jpg") center / cover no-repeat;
+    min-height: 200px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, .65);
+}
+
 .email-svg {
     width: 50px;
     height: 50px;
