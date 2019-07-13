@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use App\Event\StateCommandEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use App\Entity\Command;
 use App\Form\CommandType;
 use App\Repository\CommandRepository;
@@ -17,6 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommandController extends AbstractController
 {
+    protected $dispatcher;
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
     /**
      * @Route("/", name="command_index", methods={"GET"})
      */
@@ -92,8 +98,19 @@ class CommandController extends AbstractController
             $form = $this->createForm(CommandType::class, $command);
             $form->submit($request->request->all(), false);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($command);
-            $em->flush();
+            $state = $request->get('state');
+            if ($state == 2){
+                $CommandEvent = new StateCommandEvent($this->getUser());
+                $this->dispatcher->dispatch('command.accepted', $CommandEvent);
+                $em->persist($command);
+                $em->flush();
+            }
+            if ($state == 3){
+                $CommandEvent = new StateCommandEvent($this->getUser());
+                $this->dispatcher->dispatch('command.denied', $CommandEvent);
+                $em->persist($command);
+                $em->flush();
+            }
         }
         return $this->redirectToRoute('command_index');
     }
