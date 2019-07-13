@@ -42,7 +42,7 @@ class AssocController extends  AbstractFOSRestController
                     'product' => [
                         'id', 'name'],
                     'type' =>['id', 'name'],
-                    'prices'=>['id', 'value', 'type'=>['name']]
+                    'prices'=>['id', 'value', 'type'=>['name','value']]
                 ],
                     'allergens' => [ 'id', 'name', 'image' => [ 'id', 'path', 'imgpath', 'alt']]
                 ]);

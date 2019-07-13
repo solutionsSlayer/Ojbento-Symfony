@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Command;
 use App\Form\CommandType;
 use App\Repository\CommandRepository;
+use FOS\RestBundle\View\View;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,7 +82,20 @@ class CommandController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/{id}", name="command_edit", methods={"PATCH"})
+     */
+    public function patch(Request $request, Command $command): View
+    {
+        if ($command){
+            $form = $this->createForm(CommandType::class, $command);
+            $form->submit($request->request->all(), false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($command);
+            $em->flush();
+        }
 
+    }
     /**
      * @Route("/{id}", name="command_delete", methods={"DELETE"})
      */

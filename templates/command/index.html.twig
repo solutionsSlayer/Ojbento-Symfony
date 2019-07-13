@@ -7,39 +7,48 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Heure</th>
-                <th>Utilisateurs</th>
-                <th>Date</th>
-                <th>Commandes</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Heure</th>
+            <th>Utilisateurs</th>
+            <th>Date</th>
+            <th>Commandes</th>
+            <th>Prix</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for command in commands %}
             {% if command.state.value == 1 %}
-            <tr>
-                <td>{{ command.id }}</td>
-                <td>{{ command.time.hourCommand }}</td>
-                <td>{{ command.user.Lname }} {{ command.user.Lname }}</td>
-                <td>{{ command.datetime | date("F j, Y, g:i a") }}</td>
-                <td> <div>{% if command.commandAssocs%}Associations:{% for assoc in command.commandAssocs %}
-                    <div>{{ assoc.quantity }}{{ assoc.assoc.type.name }} {{ assoc.assoc.product.name }}</div>
-            {%  endfor %}{% endif %}</div>
-            <div>{% if command.commandMenus %}Menus: {% for menu in command.commandMenus %}
-                    <div>{{ menu.quantity }}{{ menu.menu.name }}</div>
-                {%  endfor %}{% endif %}</div>
-            </div> </td>
-                <td>{{command.totalprice}} </td>
-                <td>
-                    <a href="{{ path('command_show', {'id': command.id}) }}">show</a>
-                    <a href="{{ path('command_edit', {'id': command.id}) }}">edit</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ command.id }}</td>
+                    <td>{{ command.time.hourCommand }}</td>
+                    <td>{{ command.user.Fname }} {{ command.user.Lname }}</td>
+                    <td>{{ command.datetime | date("F j, Y, g:i a") }}</td>
+                    <td>
+                        <div>
+                            {% if command.commandAssocs%}Associations:{% for assoc in command.commandAssocs %}
+                                <div>
+                                    {{ assoc.quantity }}{{ assoc.assoc.type.name }} {{ assoc.assoc.product.name }}
+                                </div>
+                            {%  endfor %}{% endif %}
+                        </div>
+                        <div>
+                            {% if command.commandMenus %}Menus: {% for menu in command.commandMenus %}
+                                <div>
+                                    {{ menu.quantity }}{{ menu.menu.name }}
+                                </div>
+                            {%  endfor %}{% endif %}
+                        </div>
+                        </div> </td>
+                    <td>{{command.totalprice}} </td>
+                    <td>
+                        <button data-id="{{ command.id }}" data-state-id="2" class="btn btn-success accept">Accepter</button>
+                        <button data-id="{{ command.id }}" data-state-id="3" class="btn btn-danger deny">Refuser</button>
+                    </td>
+                </tr>
             {%  endif %}
-            {% else %}
+        {% else %}
             <tr>
                 <td colspan="2">Pas de commande en cours</td>
             </tr>
@@ -48,5 +57,27 @@
         </tbody>
     </table>
 
-    <a href="{{ path('command_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.accept, .deny').on('click', function() {
+                let stateId = $(this).attr("data-state-id");
+                let commandId = $(this).attr("data-id");
+                $.ajax({
+                    url: "/command/" + commandId,
+                    type: "PATCH",
+                    data: {
+                        state: stateId
+                    }
+                }).then(function(response) {
+                    console.log();
+
+                }).catch(function(){
+                    console.error('contacter l\'administrateur système.','une erreur est survenue');
+                });
+            });
+        })
+    </script>
 {% endblock %}

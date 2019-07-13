@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
+
 /**
  * @Rest\Route("/command", host="api.ojbento.fr")
  */
@@ -209,30 +210,30 @@ class CommandController extends AbstractFOSRestController
 //        return View::create($priority, Response::HTTP_OK);
 //    }
 //
-//    /**
-//     * Edit a Priority
-//     * @Rest\Patch(
-//     *     path = "/{id}",
-//     *     name = "priority_patch_api",
-//     * )
-//     * @Rest\View()
-//     *
-//     * @param Request $request
-//     * @param Priority $priority
-//     * @return View;
-//     */
-//    public function patch(Request $request, Priority $priority): View
-//    {
-//        if ($priority){
-//            $form = $this->createForm(PriorityType::class, $priority);
-//            $form->submit($request->request->all(), false);
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($priority);
-//            $em->flush();
-//        }
-//        return View::create($priority, Response::HTTP_OK);
-//    }
-//
+    /**
+     * Edit a Command
+     * @Rest\Patch(
+     *     path = "/{id}",
+     *     name = "command_patch_api",
+     * )
+     * @Rest\View()
+     *
+     * @param Request $request
+     * @param Command $command
+     * @return View;
+     */
+    public function patch(Request $request, Command $command): View
+    {
+        if ($command){
+            $form = $this->createForm(CommandType::class, $command);
+            $form->submit($request->request->all(), false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($command);
+            $em->flush();
+        }
+        return View::create($command, Response::HTTP_OK);
+    }
+
 //    /**
 //     * Delete a Priority
 //     * @Rest\Delete(
