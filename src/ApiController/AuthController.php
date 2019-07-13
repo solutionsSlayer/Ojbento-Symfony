@@ -74,19 +74,20 @@ class AuthController extends AbstractFOSRestController
     {
         $user = $this->getUser();
 
-        $user = $this->normalize($user);
-        return View::create($user, Response::HTTP_OK);
 
         $serializer = new Serializer([new ObjectNormalizer()]);
         $object = $serializer->normalize($user, null,
             ['attributes' => [
+                'password',
                 'id',
                 'email',
                 'username',
                 'city',
                 'fname',
                 'lname',
-                'commands' =>['state', 'commandassocs' =>
+                'commands' => [ 'totalPrice', 'state' =>[
+                    'name', 'value', 'id'],
+                    'commandassocs' =>
                     ['id', 'quantity',
                     'assoc' =>
                         ['id', 'quantity', 'isDish',

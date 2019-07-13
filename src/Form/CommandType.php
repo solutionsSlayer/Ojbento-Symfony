@@ -15,10 +15,6 @@ class CommandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user')
-            ->add('time', EntityType::class, array(
-                "class" => Time::class
-            ))
             ->add('state', EntityType::class, array(
                 "class" => State::class
             ))
