@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Event\StateCommandEvent;
+use App\Repository\CommandmenuRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use App\Entity\Command;
 use App\Form\CommandType;
@@ -30,6 +31,7 @@ class CommandController extends AbstractController
     {
         return $this->render('command/index.html.twig', [
             'commands' => $commandRepository->findAll(),
+            'count' => 0,
         ]);
     }
 
@@ -51,10 +53,10 @@ class CommandController extends AbstractController
 
             return $this->redirectToRoute('command_index');
         }
-
         return $this->render('command/new.html.twig', [
             'command' => $command,
             'form' => $form->createView(),
+
         ]);
     }
 
@@ -90,7 +92,7 @@ class CommandController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}", name="command_edit", methods={"PATCH"})
+     * @Route("/{id}", name="command_patch", methods={"PATCH"})
      */
     public function patch(Request $request, Command $command): Response
     {
@@ -108,6 +110,12 @@ class CommandController extends AbstractController
             if ($state == 3){
                 $CommandEvent = new StateCommandEvent($this->getUser());
                 $this->dispatcher->dispatch('command.denied', $CommandEvent);
+                $em->persist($command);
+                $em->flush();
+            }
+            if ($state == 4) {
+                $CommandEvent = new StateCommandEvent($this->getUser());
+                $this->dispatcher->dispatch('command.ready', $CommandEvent);
                 $em->persist($command);
                 $em->flush();
             }

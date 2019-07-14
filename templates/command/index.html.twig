@@ -1,70 +1,185 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Command index{% endblock %}
-
+{% for command in commands %}
+    {% if (command.state.value==1) %}
+        {% set count = count + 1 %}
+    {% endif %}
+{% endfor %}
 {% block body %}
-    <h1>Command index</h1>
+    <button class="refresh float-right btn btn-warning">Refresh</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="d-flex">
+                    <h2 > {{ count }} </h2>
+                    <h2 class="ml-3">Commandes en attente</h2>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Heure</th>
-            <th>Utilisateurs</th>
-            <th>Date</th>
-            <th>Commandes</th>
-            <th>Prix</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for command in commands %}
-            {% if command.state.value == 1 %}
-                <tr>
-                    <td>{{ command.id }}</td>
-                    <td>{{ command.time.hourCommand }}</td>
-                    <td>{{ command.user.Fname }} {{ command.user.Lname }}</td>
-                    <td>{{ command.datetime | date("F j, Y, g:i a") }}</td>
-                    <td>
-                        <div>
-                            {% if command.commandAssocs%}Associations:{% for assoc in command.commandAssocs %}
-                                <div>
-                                    {{ assoc.quantity }}{{ assoc.assoc.type.name }} {{ assoc.assoc.product.name }}
-                                </div>
-                            {%  endfor %}{% endif %}
-                        </div>
-                        <div>
-                            {% if command.commandMenus %}Menus: {% for menu in command.commandMenus %}
-                                <div>
-                                    {{ menu.quantity }}{{ menu.menu.name }}
-                                </div>
-                            {%  endfor %}{% endif %}
-                        </div>
-                        </div> </td>
-                    <td>{{command.totalprice}} </td>
-                    <td>
-                        <button data-id="{{ command.id }}" data-state-id="2" class="btn btn-success accept">Accepter</button>
-                        <button data-id="{{ command.id }}" data-state-id="3" class="btn btn-danger deny">Refuser</button>
-                    </td>
-                </tr>
-            {%  endif %}
-        {% else %}
-            <tr>
-                <td colspan="2">Pas de commande en cours</td>
-            </tr>
 
-        {% endfor %}
-        </tbody>
-    </table>
+                </div>
+                {% for command in commands %}
+                    {% if command.state.value == 1 %}
+                        <div class="command" id="command-{{ command.id }}">
+                        <div class="header">
+                            <div class=" float-right m-2 button-box">
+                                <button data-id="{{ command.id }}" data-state-id="2" data-action="accept" class="btn btn-success accept">Accepter</button>
+                                <button data-id="{{ command.id }}" data-state-id="3" data-action="deny" class="btn btn-danger deny">Refuser</button>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Pour {{ command.time.hourCommand }}</span>
+                                <span> Par
+                                    {{ command.user.Fname }}
+                                    {{ command.user.Lname }}
+                                </span>
+                                <span>Tel: {{ command.user.phone }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Crée le {{ command.datetime | date("j M") }} à  {{ command.datetime | date("H:i") }}
+                                </div>
+                                <div>
+                                    Prix: {{ command.totalPrice }} €
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-auto w-100">
+
+
+                        {% if command.commandAssocs%}
+                            <div class="col">
+                                <div>
+                                    <div class="ml-3">A la carte:</div>
+                                    {% for assoc in command.commandAssocs %}
+                                        <div class="ml-5">{{ assoc.quantity }}x {{ assoc.assoc.quantity }} {{ assoc.assoc.type.name }}s {{ assoc.assoc.product.name }}</div>
+                                    {% else %}
+                                        <div class="ml-5">Aucun produit à la carte</div>
+                                    {%  endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if command.commandMenus %}
+
+                            <div class="col">
+                                <div>
+                                    <div class="ml-3">Menus:</div>
+                                    {% for menu in command.commandMenus %}
+                                        <div class="ml-5">{{ menu.quantity }} {{ menu.menu.name }}</div>
+                                    {% else %}
+                                        <div class="ml-5">Aucun menu</div>
+                                    {%  endfor %}
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        {% endif %}
+                    {%  endif %}
+                {% else %}
+                    <h3>Pas de commande en attente de validation</h3>
+                {% endfor %}
+            </div>
+
+            <div class="col-sm-6" id="commandActive">
+                <div class="d-flex">
+                    <h2>Commandes en cours</h2>
+                </div>
+                {% for command in commands %}
+                    {% if command.state.value == 2 %}
+                        <div class="command" id="command-{{ command.id }}">
+                        <div class="header">
+                            <div class=" float-right m-2 button-box">
+                                <button data-id="{{ command.id }}" data-action="finish" data-state-id="4" class="btn btn-info finish">Terminé</button>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Pour {{ command.time.hourCommand }}</span>
+                                <span> Par
+                                    {{ command.user.Fname }}
+                                    {{ command.user.Lname }}
+                                </span>
+                                <span>Tel: {{ command.user.phone }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Crée le {{ command.datetime | date("j M") }} à  {{ command.datetime | date("H:i") }}
+                                </div>
+                                <div>
+                                    Prix: {{ command.totalPrice }} €
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-auto w-100">
+
+
+                        {% if command.commandAssocs%}
+                            <div class="col">
+                                <div>
+                                    <div class="ml-3">A la carte:</div>
+                                    {% for assoc in command.commandAssocs %}
+                                        <div class="ml-5">{{ assoc.quantity }}x {{ assoc.assoc.quantity }} {{ assoc.assoc.type.name }}s {{ assoc.assoc.product.name }}</div>
+                                    {% else %}
+                                        <div class="ml-5">Aucun produit à la carte</div>
+                                    {%  endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if command.commandMenus %}
+
+                            <div class="col">
+                                <div>
+                                    <div class="ml-3">Menus:</div>
+                                    {% for menu in command.commandMenus %}
+                                        <div class="ml-5">{{ menu.quantity }} {{ menu.menu.name }}</div>
+                                    {% else %}
+                                        <div class="ml-5">Aucun menu</div>
+                                    {%  endfor %}
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        {% endif %}
+                    {%  endif %}
+                {% else %}
+                    <h3>Pas de commande en attente de validation</h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block javascripts %}
     <script>
         $(document).ready(function() {
-            $('.accept, .deny').on('click', function() {
+            // setTimeout(function(){
+            //     location.reload();
+            // }, 60000);
+
+            $('.refresh').on('click', function(){
+                location.reload();
+            });
+
+            $('.accept, .deny, .finish').on('click', function() {
                 let stateId = $(this).attr("data-state-id");
                 let commandId = $(this).attr("data-id");
+                let action = $(this).attr("data-action");
+                let finishButton = '<button data-id="'+commandId+'" data-action="finish" data-state-id="4" class="btn btn-info finish">Terminé</button>';
+
+                let selectedCommand = $('#command-'+commandId);
+                let commandInProcess = $('#commandActive');
+                if(action === 'deny' || action === 'finish'){
+                    selectedCommand.remove();
+                }
+                else if(action === 'accept'){
+                    let buttonBox = $(this).parent();
+                    selectedCommand.remove();
+                    buttonBox.empty();
+                    buttonBox.append(finishButton);
+                    commandInProcess.append(selectedCommand);
+
+                }
+
+
                 $.ajax({
                     url: "/command/" + commandId,
                     type: "PATCH",
@@ -72,10 +187,11 @@
                         state: stateId
                     }
                 }).then(function(response) {
-                    console.log();
+                    console.log($(this));
 
                 }).catch(function(){
-                    console.error('contacter l\'administrateur système.','une erreur est survenue');
+
+
                 });
             });
         })
