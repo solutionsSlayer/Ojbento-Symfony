@@ -2,7 +2,8 @@
     background: #000;
     border-radius: 0;
     margin: 0;
-    position: relative;
+    position: fixed;
+    width: 100%;
     z-index: 999;
 }
 #header a {
@@ -12,13 +13,13 @@
     color: white;
 }
 #sidebar {
-    position: absolute;
+    position: fixed;
     z-index: 99;
     width: 220px;
     min-height: 100%;
     background: #ee1c22;
     padding-top: 50px;
-    margin-top: -50px;
+    margin-top: 10px;
 }
 
 #sidebar ul {
@@ -65,7 +66,7 @@
 }
 #main{
     margin-left: 220px;
-    padding: 20px 15px 40px;
+    padding: 60px 15px 40px;
 }
 .command{
     border: solid black;
