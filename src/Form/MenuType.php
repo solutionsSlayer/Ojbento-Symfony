@@ -19,7 +19,7 @@ class MenuType extends AbstractType
             ->add('name')
             ->add('isMidi')
             ->add('assocs',CollectionType::class, [
-
+                'label' => false,
                 'entry_type' => AssocType::class,
                 'entry_options' => [
                     'label' => false,

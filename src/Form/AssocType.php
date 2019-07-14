@@ -28,24 +28,35 @@ class AssocType extends AbstractType
 
             ->add('type', EntityType::class,[
                 "class" => Type::class
+
             ])
             ->add('product', EntityType::class, [
                 "class" => Product::class
             ])
             ->add('quantity')
             ->add('image', ImageType::class, [
-                'required' => false
+                'required' => false,
+                'attr' => array('class' => 'forAssoc'),
+                'label_attr' => array('class' => 'forAssoc')
             ])
-            ->add('isDish')
+            ->add('isDish', null,[
+                'attr' => array('class' => 'forAssoc'),
+                'label_attr' => array('class' => 'forAssoc'),])
 
 
-            ->add('description')
-            ->add('composition')
+            ->add('description',null,[
+                'attr' => array('class' => 'forAssoc'),
+                'label_attr' => array('class' => 'forAssoc')])
+
+            ->add('composition',null,[
+                'attr' => array('class' => 'forAssoc'),
+                'label_attr' => array('class' => 'forAssoc')])
+
             ->add('prices', CollectionType::class, [
+                'label_attr' => array('class' => 'forAssoc'),
                 'entry_type' => PriceassocType::class,
                 'entry_options' => [
-                    'label' => false,
-                    'attr' => array('class' => 'prices')
+                    'attr' => array('class' => 'prices','forAssoc' )
                 ],
                 'prototype' => true,
                 'allow_add' => true,
