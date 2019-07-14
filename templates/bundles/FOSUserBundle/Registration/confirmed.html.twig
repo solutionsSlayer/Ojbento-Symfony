@@ -2,6 +2,27 @@
 {# the special '!' prefix avoids errors when extending from an overridden template #}
 {# extends "@!FOSUser/Registration/confirmed.html.twig" #}
 
-
-    <div>good</div>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ (asset('asset/css/bootstrap.css')) }}">
+    <link rel="stylesheet" href="{{ (asset('asset/css/style.css')) }}">
+    <title>Bienvenue !</title>
+</head>
+<body>
+<div class="email-headband-welcome"></div>
+<div>
+    <header class="email d-flex justify-content-center align-items-center">
+        <h2 class="text-center m-0">Votre inscription a bien été prise en compte !</h2>
+        <svg class="email-svg ml-3" version="1.1" viewBox="0 0 26 26">
+            <path d="m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z"/>
+        </svg>
+    </header>
+</div>
+</body>
+</html>
 

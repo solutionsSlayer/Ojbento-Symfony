@@ -1,8 +1,8 @@
 to_ng:
     path: /
-    host: 'http://localhost:4200/login'
+    host: 'localhost:4200/login'
     defaults:
-        url: 'http://localhost:4200/login'
+        url: 'http://ojbento.fr'
 
 controllers:
     host: 'admin.ojbento.fr'
