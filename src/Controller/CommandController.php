@@ -111,6 +111,12 @@ class CommandController extends AbstractController
                 $em->persist($command);
                 $em->flush();
             }
+            if ($state == 4) {
+                $CommandEvent = new StateCommandEvent($this->getUser());
+                $this->dispatcher->dispatch('command.ready', $CommandEvent);
+                $em->persist($command);
+                $em->flush();
+            }
         }
         return $this->redirectToRoute('command_index');
     }

@@ -67,3 +67,10 @@
     margin-left: 220px;
     padding: 20px 15px 40px;
 }
+.command{
+    border: solid black;
+    margin: 10px;
+}
+.command .header{
+    border-bottom: solid black;
+}
