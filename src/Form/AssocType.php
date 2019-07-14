@@ -20,16 +20,17 @@ class AssocType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-            $builder
-                ->add('forMenu', HiddenType::class,[
-                    'attr' => array('class' => 'forMenu')])
+        $builder
+            ->add('forMenu', HiddenType::class,[
+                'attr' => array('class' => 'forMenu')])
 
 
-            ->add('product', EntityType::class, [
-                "class" => Product::class
-                    ])
+
             ->add('type', EntityType::class,[
                 "class" => Type::class
+            ])
+            ->add('product', EntityType::class, [
+                "class" => Product::class
             ])
             ->add('quantity')
             ->add('image', ImageType::class, [
