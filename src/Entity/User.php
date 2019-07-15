@@ -59,9 +59,9 @@ class User extends BaseUser
 
     public function __construct()
     {
+        parent::__construct();
         $this->created_at = new \DateTime('now');
         $this->updated_at = new \DateTime('now');
-        parent::__construct();
         $this->commands = new ArrayCollection();
     }
 
