@@ -22,8 +22,8 @@
                         <div class="command" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
-                                <button data-id="{{ command.id }}" data-state-id="2" data-action="accept" class="btn btn-success accept" data-key="{{ api_key }}">Accepter</button>
-                                <button data-id="{{ command.id }}" data-state-id="3" data-action="deny" class="btn btn-danger deny" data-key="{{ api_key }}">Refuser</button>
+                                <button data-id="{{ command.id }}" data-state-value="2" data-action="accept" class="btn btn-success accept" data-key="{{ api_key }}">Accepter</button>
+                                <button data-id="{{ command.id }}" data-state-value="3" data-action="deny" class="btn btn-danger deny" data-key="{{ api_key }}">Refuser</button>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>Pour {{ command.time.hourCommand }}</span>
@@ -88,7 +88,7 @@
                         <div class="command" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
-                                <button data-id="{{ command.id }}" data-action="finish" data-state-id="4" class="btn btn-info finish">Terminé</button>
+                                <button data-id="{{ command.id }}" data-action="finish" data-state-value="4" class="btn btn-info finish" data-key="{{ api_key }}">Terminé</button>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span>Pour {{ command.time.hourCommand }}</span>
@@ -161,10 +161,10 @@
 
             $('.accept, .deny, .finish').on('click', function() {
                 $(this).prop('disabled', true);
-                let stateId = $(this).attr("data-state-id");
+                let stateValue = $(this).attr("data-state-value");
                 let commandId = $(this).attr("data-id");
                 let action = $(this).attr("data-action");
-                let finishButton = '<button data-id="'+commandId+'" data-action="finish" data-state-id="4" class="btn btn-info finish">Terminé</button>';
+                let finishButton = '<button data-id="'+commandId+'" data-action="finish" data-state-value="4" class="btn btn-info finish">Terminé</button>';
                 let apiKey = $(this).attr('data-key');
                 let selectedCommand = $('#command-'+commandId);
                 let commandInProcess = $('#commandActive');
@@ -175,7 +175,7 @@
                     url: 'http://admin.ojbento.fr/command/' + commandId + '/status',
                     type: "PATCH",
                     data: {
-                        state: stateId,
+                        state: stateValue,
                         apikey : apiKey
                     }
                 }).then(function(response) {
