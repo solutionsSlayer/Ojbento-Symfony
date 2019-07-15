@@ -51,6 +51,11 @@ class User extends BaseUser
      */
     protected $updated_at;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $apikey;
+
 
     public function __construct()
     {
@@ -152,6 +157,18 @@ class User extends BaseUser
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getApikey(): ?string
+    {
+        return $this->apikey;
+    }
+
+    public function setApikey(?string $apikey): self
+    {
+        $this->apikey = $apikey;
 
         return $this;
     }

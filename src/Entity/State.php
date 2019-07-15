@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class State
 {
+    const STATUS_PENDING = 1;
+    const STATUS_ACCEPTED = 2;
+    const STATUS_REFUSED = 3;
+    const STATUS_FINISHED = 3;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

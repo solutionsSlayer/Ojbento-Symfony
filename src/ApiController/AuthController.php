@@ -85,7 +85,7 @@ class AuthController extends AbstractFOSRestController
                 'city',
                 'fname',
                 'lname',
-                'commands' => [ 'totalPrice', 'state' =>[
+                'commands' => [ 'datetime', 'totalPrice', 'state' =>[
                     'name', 'value', 'id'],
                     'commandassocs' =>
                     ['id', 'quantity',
