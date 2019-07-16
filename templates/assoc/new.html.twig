@@ -3,10 +3,10 @@
 {% block title %}New Assoc{% endblock %}
 
 {% block body %}
-    <h1>Create new Assoc</h1>
+    <h1>Création d'une nouvelle association</h1>
 
-    {{ include('assoc/_form.html.twig') }}
-
+    {{ form_label(form.type, 'Choix du type de produits') }}
+    {{ form_row(form.type) }}
     <a href="{{ path('assoc_index') }}">back to list</a>
 {% endblock %}
 
