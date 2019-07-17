@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Edit Assoc</h1>
 
-    {{ include('assoc/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_label(form.type) }}
+    {{ form_row(form.type) }}
 
     <a href="{{ path('assoc_index') }}">back to list</a>
 

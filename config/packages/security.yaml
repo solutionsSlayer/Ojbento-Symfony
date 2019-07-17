@@ -76,5 +76,6 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY , host: admin\.ojbento\.fr }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY, host: admin\.ojbento\.fr }
         - { path: ^/redirectTo, roles: IS_AUTHENTICATED_ANONYMOUSLY, host: ojbento\.fr/login }
+        - { path: ^/command/new, roles: ROLE_USER, host: ojbento\.fr/login }
         - { path: ^/type, roles: IS_AUTHENTICATED_ANONYMOUSLY, host: api\.ojbento\.fr }
         - { path: ^/, role: ROLE_ADMIN , host: admin\.ojbento\.fr }
