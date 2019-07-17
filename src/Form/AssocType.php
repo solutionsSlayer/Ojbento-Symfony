@@ -34,7 +34,9 @@ class AssocType extends AbstractType
                 "class" => Product::class,
                 'attr' => array('class' => 'form-control')])
 
-            ->add('quantity')
+            ->add('quantity', null, [
+                'attr' => array('class' => 'form-control')
+            ])
             ->add('image', ImageType::class, [
                 'required' => false,
                 'attr' => array('class' => 'forAssoc'),
@@ -46,18 +48,19 @@ class AssocType extends AbstractType
 
 
             ->add('description',null,[
-                'attr' => array('class' => 'forAssoc'),
+                'attr' => array('class' => 'form-control forAssoc', 'row'=>'3'),
                 'label_attr' => array('class' => 'forAssoc')])
 
             ->add('composition',null,[
-                'attr' => array('class' => 'forAssoc'),
+                'attr' => array('class' => 'form-control forAssoc', 'row'=>'3'),
                 'label_attr' => array('class' => 'forAssoc')])
 
             ->add('prices', CollectionType::class, [
                 'label_attr' => array('class' => 'forAssoc'),
                 'entry_type' => PriceassocType::class,
                 'entry_options' => [
-                    'attr' => array('class' => 'prices','forAssoc' )
+                    'attr' => array('class' => 'prices','forAssoc' ),
+                    'label_attr' => array('class' => 'd-none'),
                 ],
                 'prototype' => true,
                 'allow_add' => true,

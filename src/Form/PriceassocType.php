@@ -17,8 +17,10 @@ class PriceassocType extends AbstractType
     {
         $tranformer = new AssocToNumberTransformer($this->em);
         $builder
-            ->add('value')
-            ->add('type')
+            ->add('value',null,[
+                'attr' => array('class' => 'form-control')])
+            ->add('type',null,[
+                'attr' => array('class' => 'form-control')])
         ;
 
     }

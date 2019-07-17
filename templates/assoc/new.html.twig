@@ -5,8 +5,27 @@
 {% block body %}
     <h1>Création d'une nouvelle association</h1>
 
-    {{ form_label(form.type, 'Choix du type de produits') }}
-    {{ form_row(form.type) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.type) }}
+                {{ form_row(form.product) }}
+                {{ form_row(form.quantity) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.composition) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.image) }}
+                <img src="">
+                {{ form_row(form.isDish) }}
+
+
+                {{ form_row(form.prices) }}
+
+            </div>
+            {{ form_row(form.allergens) }}
+        </div>
+    </div>
     <a href="{{ path('assoc_index') }}">back to list</a>
 {% endblock %}
 
@@ -15,6 +34,9 @@
     <script>
         $(document).ready(function(){
             $('#assoc_forMenu').val('0');
+
         })
+
+
     </script>
 {% endblock %}
