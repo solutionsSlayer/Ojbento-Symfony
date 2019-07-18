@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Assoc{% endblock %}
+{% block title %}Edit Assoc{% endblock %}
 
 {% block body %}
-    <h1>Création d'une nouvelle association</h1>
-
+    <h1>Créer une association</h1>
+    {{ form_start(form) }}
     <div class="container">
         <div class="row">
             <div class="col-6">
@@ -26,7 +26,9 @@
             {{ form_row(form.allergens) }}
         </div>
     </div>
+    <button class="btn">Save</button>
     <a href="{{ path('assoc_index') }}">back to list</a>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}
@@ -34,9 +36,7 @@
     <script>
         $(document).ready(function(){
             $('#assoc_forMenu').val('0');
-
+            addPriceFrom($('#assoc_prices'), $newPrice);
         })
-
-
     </script>
 {% endblock %}

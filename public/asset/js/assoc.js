@@ -1,21 +1,19 @@
-$(document).ready(function(){
+var $collectionHolder;
+var $addItemButton = $('<button type= "button" class="btn btn-secondary add_item_link">Ajouter un prix </button>');
+var $newPrice = $('<div></div>').append($addItemButton);
 
-    var $collectionHolder;
-    var $addItemButton = $('<button type= "button" class="btn btn-secondary add_item_link">Ajouter un prix </button>');
-    var $newPrice = $('<div></div>').append($addItemButton);
+$collectionHolder = $('#assoc_prices');
+$collectionHolder.append($newPrice);
 
-    $collectionHolder = $('#assoc_prices');
-    $collectionHolder.append($newPrice);
-
-    $collectionHolder.find('.prices').each(function(){
-        addPriceFormDelete($(this));
-    });
-    $collectionHolder.data('index', $collectionHolder.find('.prices').length);
-    $addItemButton.on('click',function(e){
-        addPriceFrom($collectionHolder, $newPrice);
-    });
+$collectionHolder.find('.prices').each(function(){
+    addPriceFormDelete($(this));
+});
+$collectionHolder.data('index', $collectionHolder.find('.prices').length);
+$addItemButton.on('click',function(e){
     addPriceFrom($collectionHolder, $newPrice);
 });
+
+
 
 function addPriceFormDelete(arg){
     var $removeFormButton = $('<button class="btn btn-light" type="button">Supprimer le prix</button>');
@@ -33,7 +31,10 @@ function addPriceFrom($collectionHolder, $newItemLi) {
     $collectionHolder.data('index', index + 1);
     var $newFormLi = $('<div></div>').append(newForm);
     $newItemLi.before($newFormLi);
-    addPriceFormDelete($newFormLi);
+    if ($('.price-value').length > 1){
+        addPriceFormDelete($newFormLi);
+    }
+
 }
 
 
