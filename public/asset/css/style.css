@@ -74,7 +74,7 @@
 }
 #main{
     margin-left: 220px;
-    padding: 100px 15px 40px;
+    padding: 135px 15px 40px;
 }
 .command{
     border: solid black;
@@ -138,7 +138,6 @@ button {
 
     #main {
         margin: 0!important;
-        padding: 0!important;
     }
 
     body {
@@ -184,3 +183,9 @@ button {
         transform: translateX(0);
     }
 }
+
+/** Table **/
+
+.pt-3-half {
+    padding-top: 1.4rem;
+    }

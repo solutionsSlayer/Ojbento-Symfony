@@ -3,50 +3,59 @@
 {% block title %}Assoc index{% endblock %}
 
 {% block body %}
-    <h1>Assoc index</h1>
-    <a href="{{ path('assoc_new') }}">Create new</a>
-    <table class="table">
+
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Assoc index</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Quantity</th>
-                <th>Products</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>IsDish</th>
-                <th>Description</th>
-                <th>Composition</th>
-                <th>forMenu</th>
-                <th>actions</th>
+          <tr>
+            <th>Id</th>
+            <th>Quantity</th>
+            <th>Products</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>IsDish</th>
+            <th>Description</th>
+            <th>Composition</th>
+            <th>forMenu</th>
+            <th>actions</th>
             </tr>
         </thead>
         <tbody>
-
         {% for assoc in assocs %}
             {%  if assoc.forMenu != true%}
-            <tr>
-                <td>{{ assoc.id }}</td>
-                <td>{{ assoc.quantity }}</td>
-                <td>{{ assoc.type }} {{ assoc.product }}</td>
-                <td>{% if assoc.image %} <img src="{{ asset(assoc.image.imgpath) }}" width="200px" /> {% endif %}</td>
-                <td>{% for price in assoc.prices %} <div>{{ price.type }} {{ price }}€ </div>{%  endfor %}</td>
-                <td>{{ assoc.isDish ? 'Yes' : 'No' }}</td>
-                <td>{{ assoc.description }}</td>
-                <td>{{ assoc.composition }}</td>
-                <td>{{ assoc.forMenu ? 'true' : 'false' }}</td>
-                <td>
-                    <a href="{{ path('assoc_show', {'id': assoc.id}) }}">show</a>
-                    <a href="{{ path('assoc_edit', {'id': assoc.id}) }}">edit</a>
-                </td>
-            </tr>
-            {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
+          <tr>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.id }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.quantity }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.type }} {{ assoc.product }}</td>
+            <td class="pt-3-half" contenteditable="true">{% if assoc.image %} <img src="{{ asset(assoc.image.imgpath) }}" width="200px" /> {% endif %}</td>
+            <td class="pt-3-half" contenteditable="true">{% for price in assoc.prices %} <div>{{ price.type }} {{ price }}€ </div>{%  endfor %}</td>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.isDish ? 'Yes' : 'No' }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.description }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.composition }}</td>
+            <td class="pt-3-half" contenteditable="true">{{ assoc.forMenu ? 'true' : 'false' }}</td>
+            <td class="d-flex">
+              <span class="table-remove mr-2">
+               <a href="{{ path('assoc_edit', {'id': assoc.id}) }}"
+                  class="btn btn-danger btn-rounded btn-sm my-0">Edit
+                </a>
+              </span>
+              <span class="table-remove">
+               <a href="{{ path('assoc_show', {'id': assoc.id}) }}"
+                  class="btn btn-danger btn-rounded btn-sm my-0">Show
+                </a>
+              </span>
+            </td>
+          </tr>
+          {% endif %}
+        {% else %} 
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('assoc_new') }}">Create new</a>
+    <a class="btn btn-primary btn-rounded btn-sm my-0" href="{{ path('assoc_new') }}">Create new</a>
 {% endblock %}
+
