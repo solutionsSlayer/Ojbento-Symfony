@@ -4,10 +4,24 @@
 
 {% block body %}
     <h1>Create new Menu</h1>
+    {{ form_start(form) }}
+    <div class="'container">
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.name) }}
+                {{ form_row(form.isMidi) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.assocs) }}
+                <div class="row flex-row">
+                {{ form_row(form.prices) }}
+                </div>
+            </div>
+        </div>
+    </div>
+        <a href="{{ path('menu_index') }}">back to list</a>
 
-    {{ include('menu/_form.html.twig') }}
-
-    <a href="{{ path('menu_index') }}">back to list</a>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}
