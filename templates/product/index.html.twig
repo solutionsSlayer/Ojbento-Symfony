@@ -3,15 +3,19 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Produits</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>actions</th>
         </thead>
         <tbody>
         {% for product in products %}
@@ -19,17 +23,13 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('product_show', {'id': product.id}) }}">Afficher</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('product_edit', {'id': product.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('product_new') }}">Create new</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('product_new') }}">Créer un nouveau produit</a>
 {% endblock %}

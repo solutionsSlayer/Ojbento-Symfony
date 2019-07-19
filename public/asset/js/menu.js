@@ -1,7 +1,7 @@
-
     var $assocCollection;
-    var $addMenuButton = $('<button type= "button" class="add_item_link">Ajouter un produit </button>');
+    var $addMenuButton = $('<button type= "button" class="mt-3 btn btn-danger btn-rounded btn-sm my-0 add_item_link">Ajouter un produit </button>');
     var $newAssoc = $('<div></div>').append($addMenuButton);
+
 
     $assocCollection = $('#menu_assocs');
     $assocCollection.append($newAssoc);
@@ -15,7 +15,7 @@
     });
 
 function addAssocFormDelete(arg){
-    var $removeFormButton = $('<button type="button">Supprimer le produit</button>');
+    var $removeFormButton = $('<button class="mt-3 btn btn-danger btn-rounded btn-sm my-0" type="button">Supprimer le produit</button>');
     arg.append($removeFormButton);
     $removeFormButton.on('click', function(e){
         arg.remove();
@@ -39,7 +39,7 @@ function addMenuFrom($collectionHolder, $newItemLi) {
 }
 
 var $collectionHolder;
-var $addItemButton = $('<button type= "button" class="add_item_link">Ajouter un prix </button>');
+var $addItemButton = $('<button type= "button" class="mt-3 btn btn-danger btn-rounded btn-sm my-0 add_item_link">Ajouter un prix </button>');
 var $newPrice = $('<div></div>').append($addItemButton);
 
 $collectionHolder = $('#menu_prices');
@@ -55,7 +55,7 @@ $addItemButton.on('click',function(e){
 
 
 function addPriceFormDelete(arg){
-    var $removeFormButton = $('<button type="button">Supprimer le prix</button>');
+    var $removeFormButton = $('<button class="mt-3 btn btn-danger btn-rounded btn-sm my-0" type="button">Supprimer le prix</button>');
     arg.append($removeFormButton);
     $removeFormButton.on('click', function(e){
         arg.remove();

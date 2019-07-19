@@ -63,7 +63,7 @@ class CommandReadyListener implements EventSubscriberInterface
 
     private function sendMail(User $user): void
     {
-        $sendTo = 'pierretisserand31@gmail.com';
+        $sendTo = 'ddoussain@gmail.com';
         $message = (new Swift_Message('[ojbento.fr] : Commande Prête'))
             ->setFrom('no-reply@ojbento.fr')
             ->setTo($sendTo)

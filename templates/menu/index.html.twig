@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Menu index{% endblock %}
+{% block title %}Menus{% endblock %}
 
 {% block body %}
-    <h1>Menu index</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Menus</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
             <tr>
                 <th>Id</th>
@@ -30,8 +35,9 @@
                 <td>{% for price in menu.prices %} <div> {{ price.value }}€ {{ price.type }}</div>{% endfor %}</td>
                 <td>{{ menu.isMidi ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('menu_show', {'id': menu.id}) }}">show</a>
-                    <a href="{{ path('menu_edit', {'id': menu.id}) }}">edit</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('menu_show', {'id': menu.id}) }}">show</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('menu_edit', {'id': menu.id}) }}">edit</a>
+                </td>
                 </td>
             </tr>
         {% else %}
@@ -41,6 +47,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('menu_new') }}">Create new</a>
+    <a class="btn btn-primary btn-rounded btn-sm my-0" href="{{ path('menu_new') }}">Create new</a>
 {% endblock %}
+

@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Type{% endblock %}
+{% block title %}Nouveau type{% endblock %}
 
 {% block body %}
-    <h1>Create new Type</h1>
+    <h1 class="text-center m-5">Créer un nouveau type de produit</h1>
 
-    {{ include('type/_form.html.twig') }}
+    <tr>{{ include('type/_form.html.twig') }}</tr>
 
-    <a href="{{ path('type_index') }}">back to list</a>
+    <a style="width: 150px;" class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2" href="{{ path('type_index') }}">Revenir à la liste</a>
 {% endblock %}
+
+

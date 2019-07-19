@@ -1,5 +1,5 @@
 #header {
-    background: #000;
+    background: #ee1b22;
     border-radius: 0;
     margin: 0;
     position: fixed;
@@ -11,53 +11,61 @@
 }
 #header a span{
     color: white;
+    font-weight: bold;
 }
 #sidebar {
     position: fixed;
     z-index: 99;
     width: 220px;
     min-height: 100%;
-    background: #ee1c22;
+    background: #000000de;
     padding-top: 50px;
     margin-top: 10px;
 }
 
+#sidebar {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
 #sidebar ul {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
     list-style-type: none;
     padding: 0;
 }
 #sidebar ul li {
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+    align-items: start;
+    margin-left: 5px;
     color: white;
     font-size: 20px;
-    border-bottom: solid white 2px;
+    margin-bottom: 20px;
 }
 #sidebar ul li a {
     display: block;
     font-size: 16px;
-    border-bottom: solid white 1px;
     color: #fff;
     text-decoration: none;
     text-transform: none;
-    padding: 7px 20px;
-}
-#sidebar ul li div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-transform: none;
-    font-size: 12px;
-    text-align: end;
-    padding-right: 20px;
-    background: #984c4e;
 }
 
+#sidebar ul li > a {
+    font-weight: bold;
+    padding-left: 5px;
+    color: rgba(238, 27, 34, .75);
+}
 #sidebar ul li div a{
     border: none;
     display: flex;
     flex-direction: column;
     text-transform: none;
     font-size: 12px;
-    text-align: end;
+    text-align: start;
     margin: 0 0 0 20px;
     padding: 2px;
 }
@@ -66,7 +74,7 @@
 }
 #main{
     margin-left: 220px;
-    padding: 60px 15px 40px;
+    padding: 135px 15px 40px;
 }
 .command{
     border: solid black;
@@ -109,3 +117,75 @@
 .jumbotron{
     background: #ee1c22;
 }
+
+button {
+    cursor: pointer;
+}
+
+.btn-menu, .btn-menu label {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+
+    .username {
+        color: white;
+    }
+
+    .user btn {
+        margin-top: 15px;
+    }
+
+    #main {
+        margin: 0!important;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: 0;
+        width: 75%; height: 100vh;
+        transform: translateX(-100%);
+        overflow: scroll;
+        z-index: 2000;
+    }
+
+    nav {
+        max-width: 100%;
+    }
+
+    nav a {
+        width: 100%;
+    }
+
+    .btn-menu {
+        display: flex;
+        justify-content: flex-end;
+        padding: .5em 0;
+        background: #ee1b22;
+    }
+
+    .btn-menu button {
+        border: none; background: none;
+        padding: 0;
+        width: 4rem;
+        margin-right: 5%;
+    }
+
+    .btn-menu svg {
+        fill: #fff;
+    }
+
+    .with #sidebar {
+        transform: translateX(0);
+    }
+}
+
+/** Table **/
+
+.pt-3-half {
+    padding-top: 1.4rem;
+    }
