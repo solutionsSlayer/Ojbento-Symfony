@@ -28,7 +28,7 @@ class AssocType extends AbstractType
 
             ->add('type', EntityType::class,[
                 "class" => Type::class,
-                'attr' => array('class' => 'form-control')])
+                'attr' => array('class' => 'form-control test')])
 
             ->add('product', EntityType::class, [
                 "class" => Product::class,
