@@ -13,13 +13,23 @@
             <div class="col-sm-6">
                 <div class="d-flex">
                     <h2 > {{ count }} </h2>
-                    <h2 class="ml-3">Commandes en attente</h2>
+                    <div class="d-flex">
+                        <h2 class="ml-3">Commandes en attente</h2>
+<select class="form-group">
+    {% for time in times %}
+    <option value="{{ time.value }}">
+        {{ time.hourCommand }}
+    </option>
+    {% endfor %}
+</select>
+
+                </div>
 
 
                 </div>
                 {% for command in commands %}
                     {% if command.state.value == 1 %}
-                        <div class="pending-commands command" id="command-{{ command.id }}">
+                        <div class="pending-commands command command-{{ command.time.hourCommand }}" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
                                 <button data-id="{{ command.id }}" data-state-value="2" data-action="accept" class="btn btn-success accept" data-key="{{ api_key }}">Accepter</button>
@@ -158,11 +168,7 @@
             $('.refresh').on('click', function(){
                 location.reload();
             });
-            var boxes = $('.pending-commands');
-            for (i=0; i<boxes.length; i++) {
-                let time = boxes[i].closest( ".time" );
-                console.log(time.html())
-            }
+
             $('.accept, .deny, .finish').on('click', function() {
                 $(this).prop('disabled', true);
                 let stateValue = $(this).attr("data-state-value");

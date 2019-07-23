@@ -6,6 +6,7 @@ use App\Entity\State;
 use App\Event\StateCommandEvent;
 use App\Repository\CommandmenuRepository;
 use App\Repository\StateRepository;
+use App\Repository\TimeRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use App\Entity\Command;
 use App\Form\CommandType;
@@ -30,7 +31,7 @@ class CommandController extends AbstractController
     /**
      * @Route("/", name="command_index", methods={"GET"})
      */
-    public function index(CommandRepository $commandRepository): Response
+    public function index(CommandRepository $commandRepository, TimeRepository $timeRepository): Response
     {
         $currentUser = $this->getUser();
         $uniqueKey = $this->generateUniqueKey();
@@ -41,7 +42,8 @@ class CommandController extends AbstractController
         return $this->render('command/index.html.twig', [
             'commands' => $commandRepository->findAll(),
             'count' => 0,
-            'api_key' => $uniqueKey
+            'api_key' => $uniqueKey,
+            'times' => $timeRepository->findAll(),
         ]);
     }
 

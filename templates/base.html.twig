@@ -84,6 +84,7 @@
             </ul>
         </div>
     </div>
+
     <div id="main">
     {% block body %}
         <div>{% for command in commands %}
@@ -98,16 +99,18 @@
             {% else %}
                 Vous n'avez pas de commande en attente.
             {% endif %}
+
         </div>
         <div>
             {% for user in users %}
                     {% set usercount = usercount + 1 %}
             {% endfor %}
-            {% if count != 0 %}
+            {% if usercount != 0 %}
                 Vous avez {{ usercount }} utilisateurs enregistrés.
             {% else %}
                 Vous n'avez pas de commande en attente.
             {% endif %}
+
         </div>
     {% endblock %}
     </div>
