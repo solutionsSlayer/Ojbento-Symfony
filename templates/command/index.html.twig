@@ -15,9 +15,9 @@
                     <h2 > {{ count }} </h2>
                     <div class="d-flex">
                         <h2 class="ml-3">Commandes en attente</h2>
-<select class="form-group">
+<select id="pending_select" class="form-group">
     {% for time in times %}
-    <option value="{{ time.value }}">
+    <option class="option-time" data-time="{{ time.value }}" value="{{ time.value }}">
         {{ time.hourCommand }}
     </option>
     {% endfor %}
@@ -29,7 +29,7 @@
                 </div>
                 {% for command in commands %}
                     {% if command.state.value == 1 %}
-                        <div class="pending-commands command command-{{ command.time.hourCommand }}" id="command-{{ command.id }}">
+                        <div class="pending-commands command command-{{ command.time.value }}" data-time="{{ command.time.hourCommand }}" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
                                 <button data-id="{{ command.id }}" data-state-value="2" data-action="accept" class="btn btn-success accept" data-key="{{ api_key }}">Accepter</button>
@@ -160,6 +160,8 @@
 
 {% block javascripts %}
     <script>
+        var allCommands = $('.pending-commands');
+        var times = $('.option-time');
         $(document).ready(function() {
             // setTimeout(function(){
             //     location.reload();
@@ -203,10 +205,23 @@
                     }
 
                 }).catch(function(){
-
-
                 });
+
             });
+            $('#pending_select').change(function () {
+                allCommands.hide();
+                let selectedTime = $('#pending_select').val();
+                $('.command-'+selectedTime).show();
+
+            })
+            for (i=0; i<times.length; i++){
+                let time = times[i];
+                let timeValue = time.attributes[1].value;
+                let commandArray = $('.command-'+timeValue);
+                let commandcount = commandArray.length;
+                let hour = time.innerHTML;
+                time.innerHTML = hour+ ' - ' +commandcount;
+            }
         })
     </script>
 {% endblock %}
