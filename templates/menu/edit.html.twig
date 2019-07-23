@@ -3,13 +3,41 @@
 {% block title %}Edit Menu{% endblock %}
 
 {% block body %}
-    <h1>Edit Menu</h1>
 
-    {{ include('menu/_form.html.twig', {'button_label': 'Update'}) }}
+    <h1 class="text-center">Création d'un nouveau menu</h1>
+    {{ form_start(form) }}
+    <div class="float-right">
+        <button class=" btn btn-dark"><a href="{{ path('menu_index') }}">Retour à la liste</a></button>
+        <button class=" btn btn-success btn-rounded mr-2">Sauvegarder</button>
+       {{ include('menu/_delete_form.html.twig') }}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 m-auto">
+                {{ form_row(form.name) }}
+                {{ form_row(form.isMidi) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex assoc_header"> <h2>Les produits</h2></div>
+                {{ form_row(form.assocs, {'attr': {'class':'assoc_box'}}) }}
+            </div>
+            <div class="col-6">
+                <div class="d-flex assoc_header"> <h2>Prix</h2></div>
+                {{ form_row(form.prices, {'attr': {'class':'price_box'}}) }}
+            </div>
 
-    <a href="{{ path('menu_index') }}">back to list</a>
+        </div>
 
-    {{ include('menu/_delete_form.html.twig') }}
+
+        {{ form_end(form) }}
+    </div>
+
+    </div>
+
+
+
 {% endblock %}
 
 {% block javascripts %}

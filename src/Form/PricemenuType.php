@@ -16,10 +16,13 @@ class PricemenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('value',null,[
-                'attr' => array('class' => 'col-6 price-value form-control')])
             ->add('type',null,[
+                'label' => 'Type de prix',
                 'attr' => array('class' => 'col-6 form-control')])
+            ->add('value',null,[
+                'label' => 'Prix',
+                'attr' => array('class' => 'col-6 price-value form-control')])
+
         ;
     }
 

@@ -19,14 +19,14 @@
                 </div>
                 {% for command in commands %}
                     {% if command.state.value == 1 %}
-                        <div class="command" id="command-{{ command.id }}">
+                        <div class="pending-commands command" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
                                 <button data-id="{{ command.id }}" data-state-value="2" data-action="accept" class="btn btn-success accept" data-key="{{ api_key }}">Accepter</button>
                                 <button data-id="{{ command.id }}" data-state-value="3" data-action="deny" class="btn btn-danger deny" data-key="{{ api_key }}">Refuser</button>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <span>Pour {{ command.time.hourCommand }}</span>
+                                <span>Pour <span class="time">{{ command.time.hourCommand }}</span></span>
                                 <span> Par
                                     {{ command.user.Fname }}
                                     {{ command.user.Lname }}
@@ -158,7 +158,11 @@
             $('.refresh').on('click', function(){
                 location.reload();
             });
-
+            var boxes = $('.pending-commands');
+            for (i=0; i<boxes.length; i++) {
+                let time = boxes[i].closest( ".time" );
+                console.log(time.html())
+            }
             $('.accept, .deny, .finish').on('click', function() {
                 $(this).prop('disabled', true);
                 let stateValue = $(this).attr("data-state-value");
@@ -168,8 +172,6 @@
                 let apiKey = $(this).attr('data-key');
                 let selectedCommand = $('#command-'+commandId);
                 let commandInProcess = $('#commandActive');
-
-
 
                 $.ajax({
                     url: 'http://admin.ojbento.fr/command/' + commandId + '/status',

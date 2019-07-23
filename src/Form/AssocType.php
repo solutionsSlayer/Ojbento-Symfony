@@ -28,13 +28,16 @@ class AssocType extends AbstractType
 
             ->add('type', EntityType::class,[
                 "class" => Type::class,
+                'label' => 'Catégorie',
                 'attr' => array('class' => 'form-control test')])
 
             ->add('product', EntityType::class, [
                 "class" => Product::class,
+                'label' => 'Produit',
                 'attr' => array('class' => 'form-control')])
 
             ->add('quantity', null, [
+                'label' => 'Quantité',
                 'attr' => array('class' => 'form-control')
             ])
             ->add('image', ImageType::class, [
@@ -48,10 +51,12 @@ class AssocType extends AbstractType
 
 
             ->add('description',null,[
+                'label' => 'Description',
                 'attr' => array('class' => 'form-control forAssoc', 'row'=>'3'),
                 'label_attr' => array('class' => 'forAssoc')])
 
             ->add('composition',null,[
+                'label' => 'Composition',
                 'attr' => array('class' => 'form-control forAssoc', 'row'=>'3'),
                 'label_attr' => array('class' => 'forAssoc')])
 
@@ -68,6 +73,7 @@ class AssocType extends AbstractType
                 'by_reference' => false
             ])
             ->add('allergens', EntityType::class,[
+                'label' => 'Allergènes',
                 'class'=> Allergen::class,
                 'expanded'=> true,
                 'multiple'=> true

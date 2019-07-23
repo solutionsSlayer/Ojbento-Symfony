@@ -6,8 +6,9 @@
     width: 100%;
     z-index: 999;
 }
-#header a {
+a {
     text-decoration: none;
+    color: white;
 }
 #header a span{
     color: white;
@@ -83,7 +84,17 @@
 .command .header{
     border-bottom: solid black;
 }
+.prices{
+    background: #b0acb3;
+    padding: 5px;
+    margin: 10px 0px;
+}
 
+.assoc{
+    background: #b0acb3;
+    padding: 5px;
+    margin: 10px 0px;
+}
 .email-headband {
     margin-bottom: 20px;
     background: url("../../img/mail/email.jpg") center / cover no-repeat;

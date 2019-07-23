@@ -19,13 +19,15 @@ class MenuType extends AbstractType
             ->add('name', null, [
                 'attr' => array('class' => 'form-control')
             ])
-            ->add('isMidi')
+            ->add('isMidi', null, [
+                'label' => 'Pour midi ?'
+            ])
             ->add('assocs',CollectionType::class, [
                 'label' => false,
                 'attr' => array('class' => 'assoc_box'),
                 'entry_type' => AssocType::class,
                 'entry_options' => [
-                    'label' => 'Produit',
+                    'label' => false,
                     'attr' => array('class' => 'assoc')
 
                 ],
@@ -36,6 +38,8 @@ class MenuType extends AbstractType
             ])
             ->add('prices', CollectionType::class, [
                 'entry_type' => PricemenuType::class,
+                'attr' => array('class' => 'price_box'),
+                'label' => false,
                 'entry_options' => [
                     'label' => false,
                     'attr' => array('class' => 'prices')
