@@ -18,6 +18,7 @@
                     <div class="d-flex">
                         <h2 class="ml-3">{{ count }} Commandes en attente</h2>
                         <select id="pending_select" class="form-group">
+                            <option value="all"> Tout lister</option>
                             {% for time in times %}
                                 <option class="pending-option-time" data-time="{{ time.value }}" value="{{ time.value }}">
                                     {{ time.hourCommand }}
@@ -92,6 +93,7 @@
                 <div class="d-flex">
                     <h2>{{ count2 }} Commandes en cours</h2>
                     <select id="accepted_select" class="form-group">
+                        <option value="all"> Tout lister</option>
                         {% for time in times %}
                             <option class="accepted-option-time" data-time="{{ time.value }}" value="{{ time.value }}">
                                 {{ time.hourCommand }}
@@ -220,12 +222,18 @@
                 allpendingCommands.hide();
                 let selectedTime = $('#pending_select').val();
                 $('.pending-command-'+selectedTime).show();
+                if (selectedTime === 'all'){
+                    allpendingCommands.show();
+                }
 
             });
             $('#accepted_select').change(function () {
                 allAcceptedCommands.hide();
                 let selectedTime = $('#accepted_select').val();
                 $('.accepted-command-'+selectedTime).show();
+                if (selectedTime === 'all'){
+                    allAcceptedCommands.show();
+                }
 
             });
             window.onload = function(){
