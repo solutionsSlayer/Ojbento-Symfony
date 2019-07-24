@@ -44,6 +44,7 @@ class CommandController extends AbstractController
             'count' => 0,
             'api_key' => $uniqueKey,
             'times' => $timeRepository->findAll(),
+            'count2' => 0
         ]);
     }
 
