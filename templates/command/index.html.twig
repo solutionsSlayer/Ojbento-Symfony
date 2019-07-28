@@ -5,6 +5,9 @@
     {% if (command.state.value==1) %}
         {% set count = count + 1 %}
     {% endif %}
+    {%  if (command.state.value==2) %}
+        {% set count2 = count2 + 1 %}
+    {% endif %}
 {% endfor %}
 {% block body %}
     <button class="refresh float-right btn btn-warning">Refresh</button>
@@ -12,21 +15,28 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="d-flex">
-                    <h2 > {{ count }} </h2>
-                    <h2 class="ml-3">Commandes en attente</h2>
-
-
+                    <div class="d-flex">
+                        <h2 class="ml-3">{{ count }} Commandes en attente</h2>
+                        <select id="pending_select" class="form-group">
+                            <option value="all"> Tout lister</option>
+                            {% for time in times %}
+                                <option class="pending-option-time" data-time="{{ time.value }}" value="{{ time.value }}">
+                                    {{ time.hourCommand }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 {% for command in commands %}
                     {% if command.state.value == 1 %}
-                        <div class="command" id="command-{{ command.id }}">
+                    <div class="pending-commands command pending-command-{{ command.time.value }}" data-time="{{ command.time.hourCommand }}" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
                                 <button data-id="{{ command.id }}" data-state-value="2" data-action="accept" class="btn btn-success accept" data-key="{{ api_key }}">Accepter</button>
                                 <button data-id="{{ command.id }}" data-state-value="3" data-action="deny" class="btn btn-danger deny" data-key="{{ api_key }}">Refuser</button>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <span>Pour {{ command.time.hourCommand }}</span>
+                                <span>Pour <span class="time">{{ command.time.hourCommand }}</span></span>
                                 <span> Par
                                     {{ command.user.Fname }}
                                     {{ command.user.Lname }}
@@ -81,11 +91,19 @@
 
             <div class="col-sm-6" id="commandActive">
                 <div class="d-flex">
-                    <h2>Commandes en cours</h2>
+                    <h2>{{ count2 }} Commandes en cours</h2>
+                    <select id="accepted_select" class="form-group">
+                        <option value="all"> Tout lister</option>
+                        {% for time in times %}
+                            <option class="accepted-option-time" data-time="{{ time.value }}" value="{{ time.value }}">
+                                {{ time.hourCommand }}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
                 {% for command in commands %}
                     {% if command.state.value == 2 %}
-                        <div class="command" id="command-{{ command.id }}">
+                    <div class="accepted-commands command accepted-command-{{ command.time.value }}" data-time="{{ command.time.hourCommand }}" id="command-{{ command.id }}">
                         <div class="header">
                             <div class=" float-right m-2 button-box">
                                 <button data-id="{{ command.id }}" data-action="finish" data-state-value="4" class="btn btn-info finish" data-key="{{ api_key }}">Terminé</button>
@@ -150,6 +168,10 @@
 
 {% block javascripts %}
     <script>
+        var allpendingCommands = $('.pending-commands');
+        var allAcceptedCommands = $('.accepted-commands');
+        var pending_times = $('.pending-option-time');
+        var accepted_times = $('.accepted-option-time');
         $(document).ready(function() {
             // setTimeout(function(){
             //     location.reload();
@@ -168,8 +190,6 @@
                 let apiKey = $(this).attr('data-key');
                 let selectedCommand = $('#command-'+commandId);
                 let commandInProcess = $('#commandActive');
-
-
 
                 $.ajax({
                     url: 'http://admin.ojbento.fr/command/' + commandId + '/status',
@@ -195,10 +215,40 @@
                     }
 
                 }).catch(function(){
-
-
                 });
+
             });
+            $('#pending_select').change(function () {
+                allpendingCommands.hide();
+                let selectedTime = $('#pending_select').val();
+                $('.pending-command-'+selectedTime).show();
+                if (selectedTime === 'all'){
+                    allpendingCommands.show();
+                }
+
+            });
+            $('#accepted_select').change(function () {
+                allAcceptedCommands.hide();
+                let selectedTime = $('#accepted_select').val();
+                $('.accepted-command-'+selectedTime).show();
+                if (selectedTime === 'all'){
+                    allAcceptedCommands.show();
+                }
+
+            });
+            window.onload = function(){
+                for (i=0; i<pending_times.length; i++) {
+                let pending_time = pending_times[i];
+                let accepted_time = accepted_times[i];
+                let timeValue = pending_time.attributes[1].value;
+                let pendingCommandArray = $('.pending-command-' + timeValue);
+                let acceptedCommandArray = $('.accepted-command-' + timeValue);
+
+                let hour = pending_time.innerHTML;
+                pending_time.innerHTML = hour + ' - ' + pendingCommandArray.length;
+                accepted_time.innerHTML = hour + ' - ' + acceptedCommandArray.length;
+            }
+            }
         })
     </script>
 {% endblock %}
