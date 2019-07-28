@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Priceassoc{% endblock %}
+{% block title %}Prix d'associations{% endblock %}
 
 {% block body %}
-    <h1>Create new Priceassoc</h1>
+    <h1 class="text-center m-3">Créer un nouveau prix pour une association</h1>
 
     {{ include('priceassoc/_form.html.twig') }}
 
-    <a href="{{ path('priceassoc_index') }}">back to list</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0 mb-3" href="{{ path('priceassoc_index') }}">Revenir à la liste</a>
 {% endblock %}

@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Allergen{% endblock %}
+{% block title %}Allergène{% endblock %}
 
 {% block body %}
-    <h1>Allergen</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Allergène</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -17,10 +22,9 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('allergen_index') }}">back to list</a>
-
-    <a href="{{ path('allergen_edit', {'id': allergen.id}) }}">edit</a>
-
-    {{ include('allergen/_delete_form.html.twig') }}
+    <div class="d-flex">    
+        <a class="btn btn-danger btn-rounded btn-sm my-0 mr-3" href="{{ path('allergen_index') }}">Revenir à la liste</a>
+        <a class="btn btn-danger btn-rounded btn-sm my-0 mr-3" href="{{ path('allergen_edit', {'id': allergen.id}) }}">Editer</a>
+        {{ include('allergen/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

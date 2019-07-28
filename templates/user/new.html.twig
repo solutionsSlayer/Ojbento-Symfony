@@ -1,11 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Nouvel Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
-
-    {{ include('user/_form.html.twig') }}
-
-    <a href="{{ path('user_index') }}">back to list</a>
+    <h1 class="text-center m-3">Créer un utilisateur</h1>
+    {{ form_start(form) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.username)}}
+                {{ form_row(form.email) }}
+                {{ form_row(form.password) }}
+                {{ form_row(form.fname) }}
+                {{ form_row(form.lname) }}
+                {{ form_row(form.phone) }}
+                {{ form_row(form.city) }}
+            </div>
+        </div>
+    </div>
+     <div class="container d-flex">
+        <button class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2">Sauvegarder</button>
+        <a class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2" href="{{ path('assoc_index') }}">Revenir à la liste</a>
+    {{ form_end(form) }}
+    </div>
 {% endblock %}
+
+{% block form_row %}
+{% spaceless %}
+    <div class="form_row">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_help(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+

@@ -1,18 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Image index{% endblock %}
+{% block title %}Images{% endblock %}
 
 {% block body %}
-    <h1>Image index</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Images</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Imgpath</th>
-                <th>Path</th>
-                <th>Alt</th>
-                <th>actions</th>
+          <tr>
+            <th>Id</th>
+            <th>Imgpath</th>
+            <th>Image</th>
+            <th>Alt</th>
+            <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,11 +25,13 @@
             <tr>
                 <td>{{ image.id }}</td>
                 <td>{{ image.imgpath }}</td>
-                <td>{{ image.path }}</td>
-                <td>{{ image.alt }}</td>
                 <td>
-                    <a href="{{ path('image_show', {'id': image.id}) }}">show</a>
-                    <a href="{{ path('image_edit', {'id': image.id}) }}">edit</a>
+                    <img src="{{ asset(image.imgpath) }}" width="75px" />
+                </td>
+                <td>{{ image.alt }}</td>
+                <td class="d-flex">
+                    <a class="btn btn-danger btn-rounded btn-sm my-0 mr-2" href="{{ path('image_show', {'id': image.id}) }}">Afficher</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('image_edit', {'id': image.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
@@ -34,6 +41,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('image_new') }}">Create new</a>
+    <a class="btn btn-primary btn-rounded btn-sm my-0"  href="{{ path('image_new') }}">Ajouter une image</a>
 {% endblock %}

@@ -132,6 +132,9 @@
     "monolog/monolog": {
         "version": "1.24.0"
     },
+    "myclabs/deep-copy": {
+        "version": "1.9.1"
+    },
     "namshi/jose": {
         "version": "7.2.3"
     },
@@ -162,6 +165,42 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
+    "phpspec/prophecy": {
+        "version": "1.8.1"
+    },
+    "phpunit/php-code-coverage": {
+        "version": "4.0.8"
+    },
+    "phpunit/php-file-iterator": {
+        "version": "1.4.5"
+    },
+    "phpunit/php-text-template": {
+        "version": "1.2.1"
+    },
+    "phpunit/php-timer": {
+        "version": "1.0.9"
+    },
+    "phpunit/php-token-stream": {
+        "version": "2.0.2"
+    },
+    "phpunit/phpunit": {
+        "version": "4.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.7",
+            "ref": "eb29b06389d7f387aa8d570e109d8ef3cbebc452"
+        },
+        "files": [
+            ".env.test",
+            "phpunit.xml.dist",
+            "config/bootstrap.php",
+            "tests/.gitignore"
+        ]
+    },
+    "phpunit/phpunit-mock-objects": {
+        "version": "3.4.4"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -176,6 +215,36 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "sebastian/code-unit-reverse-lookup": {
+        "version": "1.0.1"
+    },
+    "sebastian/comparator": {
+        "version": "1.2.4"
+    },
+    "sebastian/diff": {
+        "version": "1.4.3"
+    },
+    "sebastian/environment": {
+        "version": "2.0.0"
+    },
+    "sebastian/exporter": {
+        "version": "2.0.0"
+    },
+    "sebastian/global-state": {
+        "version": "1.1.1"
+    },
+    "sebastian/object-enumerator": {
+        "version": "2.0.1"
+    },
+    "sebastian/recursion-context": {
+        "version": "2.0.0"
+    },
+    "sebastian/resource-operations": {
+        "version": "1.0.0"
+    },
+    "sebastian/version": {
+        "version": "2.0.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

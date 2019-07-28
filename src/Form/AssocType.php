@@ -21,11 +21,10 @@ class AssocType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        
+
             ->add('forMenu', HiddenType::class,[
                 'attr' => array('class' => 'forMenu')])
-
-
-
             ->add('type', EntityType::class,[
                 "class" => Type::class,
                 'label' => 'Catégorie',
@@ -33,13 +32,12 @@ class AssocType extends AbstractType
 
             ->add('product', EntityType::class, [
                 "class" => Product::class,
-                'label' => 'Produit',
-                'attr' => array('class' => 'form-control')])
+                'attr' => array('class' => 'form-control'),
+                'label'=> 'Produit'])
 
             ->add('quantity', null, [
-                'label' => 'Quantité',
-                'attr' => array('class' => 'form-control')
-            ])
+                'attr' => array('class' => 'form-control'),
+                'label'=> 'Quantité'])
             ->add('image', ImageType::class, [
                 'required' => false,
                 'attr' => array('class' => 'forAssoc'),
@@ -47,9 +45,8 @@ class AssocType extends AbstractType
             ])
             ->add('isDish', null,[
                 'attr' => array('class' => 'forAssoc'),
+                'required' => false,
                 'label_attr' => array('class' => 'forAssoc'),])
-
-
             ->add('description',null,[
                 'label' => 'Description',
                 'attr' => array('class' => 'form-control forAssoc', 'row'=>'3'),
@@ -62,6 +59,7 @@ class AssocType extends AbstractType
 
             ->add('prices', CollectionType::class, [
                 'label_attr' => array('class' => 'forAssoc'),
+                'label' => 'Prix',
                 'entry_type' => PriceassocType::class,
                 'entry_options' => [
                     'attr' => array('class' => 'prices','forAssoc' ),
@@ -76,7 +74,8 @@ class AssocType extends AbstractType
                 'label' => 'Allergènes',
                 'class'=> Allergen::class,
                 'expanded'=> true,
-                'multiple'=> true
+                'multiple'=> true,
+                'label' => 'Allergènes)'
             ])
 
         ;

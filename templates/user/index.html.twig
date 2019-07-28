@@ -3,23 +3,28 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Liste utilisateur</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>LastLogin</th>
-                <th>Roles</th>
-                <th>Fname</th>
-                <th>Lname</th>
-                <th>Phone</th>
-                <th>City</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>actions</th>
-            </tr>
+          <tr>
+            <th>Nom d'utilisateur</th>
+            <th>Adresse mail</th>
+            <th>Dernière connexion</th>
+            <th>Roles</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Ville</th>
+            <th>Crée le</th>
+            <th>Modifié le</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for user in users %}
@@ -35,8 +40,8 @@
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('user_show', {'id': user.id}) }}">Afficher</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('user_edit', {'id': user.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
@@ -46,6 +51,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
 {% endblock %}
