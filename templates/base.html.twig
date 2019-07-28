@@ -10,12 +10,11 @@
     {% endblock %}
 </head>
 <body>
-<nav id="header" class="navbar">
+<nav id="header" class="navbar pt-3 pb-3">
     <div class="container-fluid">
         <a class="logo" href=""><span class="m-4">OjBento</span></a>
-        <div class="btn-group pull-right user d-flex flex-column-reverse justify-content-around">
+        <div class="user d-flex flex-column-reverse">
             {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                <span class="mt-2 username">{{ app.user.username }}</span>
                 <a class="d-flex justify-content-s" href="{{ path("fos_user_security_logout") }}">
                     <button class="btn btn-light">Déconnexion</button>
                 </a>
@@ -42,6 +41,12 @@
     <div id="sidebar">
         <div data-spy="affix" data-offset-top="50" class="affix-top nav">
             <ul>
+                <li class="text-center mr-2 ml-2 d-flex align-items-center flex-column">
+                    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                    <span>-Bienvenue-</span>
+                    <span style="color: white;" class="mt-2 username">{{ app.user.username }}</span>
+                   {% endif %}
+                </li>
                 <li> <a href="{{ path("homepage") }}">Dashboard</a></li>
                 <li> <a href="{{ path("command_index") }}">Commandes</a>
                     <div>

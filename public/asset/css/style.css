@@ -13,6 +13,10 @@
     color: white;
     font-weight: bold;
 }
+#header button {
+    color: rgba(0, 0, 0, .65)!important;
+    font-weight: bold;
+}
 #sidebar {
     position: fixed;
     z-index: 99;
