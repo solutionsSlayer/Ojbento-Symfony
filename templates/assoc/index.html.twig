@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Assoc index{% endblock %}
+{% block title %}Associations{% endblock %}
 
 {% block body %}
 
 <div class="card">
-  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Assoc index</h1>
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Associations</h1>
   <div class="card-body">
     <div id="table" class="table-editable">
       <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
@@ -14,15 +14,14 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Quantity</th>
-            <th>Products</th>
-            <th>Image</th>
-            <th>Price</th>
-            <th>IsDish</th>
+            <th>Quantité</th>
+            <th>Produits</th>
+            <th>Images</th>
+            <th>Prix</th>
             <th>Description</th>
             <th>Composition</th>
-            <th>forMenu</th>
-            <th>actions</th>
+            <th>Menu ?</th>
+            <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -34,19 +33,18 @@
             <td class="pt-3-half" contenteditable="true">{{ assoc.type }} {{ assoc.product }}</td>
             <td class="pt-3-half" contenteditable="true">{% if assoc.image %} <img src="{{ asset(assoc.image.imgpath) }}" width="200px" /> {% endif %}</td>
             <td class="pt-3-half" contenteditable="true">{% for price in assoc.prices %} <div>{{ price.type }} {{ price }}€ </div>{%  endfor %}</td>
-            <td class="pt-3-half" contenteditable="true">{{ assoc.isDish ? 'Yes' : 'No' }}</td>
             <td class="pt-3-half" contenteditable="true">{{ assoc.description }}</td>
             <td class="pt-3-half" contenteditable="true">{{ assoc.composition }}</td>
             <td class="pt-3-half" contenteditable="true">{{ assoc.forMenu ? 'true' : 'false' }}</td>
             <td class="d-flex">
               <span class="table-remove mr-2">
                <a href="{{ path('assoc_edit', {'id': assoc.id}) }}"
-                  class="btn btn-danger btn-rounded btn-sm my-0">Edit
+                  class="btn btn-danger btn-rounded btn-sm my-0">Editer
                 </a>
               </span>
               <span class="table-remove">
                <a href="{{ path('assoc_show', {'id': assoc.id}) }}"
-                  class="btn btn-danger btn-rounded btn-sm my-0">Show
+                  class="btn btn-danger btn-rounded btn-sm my-0">Afficher
                 </a>
               </span>
             </td>
@@ -56,6 +54,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-primary btn-rounded btn-sm my-0" href="{{ path('assoc_new') }}">Create new</a>
+    <a class="btn btn-primary btn-rounded btn-sm my-0" href="{{ path('assoc_new') }}">Créer une association</a>
 {% endblock %}
 

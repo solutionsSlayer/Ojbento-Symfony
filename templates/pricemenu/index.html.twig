@@ -1,26 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pricemenu index{% endblock %}
+{% block title %}Prix des menus{% endblock %}
 
 {% block body %}
-    <h1>Pricemenu index</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Prix des menus</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Value</th>
-                <th>actions</th>
-            </tr>
+          <tr>
+            <th>Id</th>
+            <th>Prix</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for pricemenu in pricemenus %}
             <tr>
                 <td>{{ pricemenu.id }}</td>
-                <td>{{ pricemenu.value }}</td>
+                <td>{{ pricemenu.value }} €</td>
                 <td>
-                    <a href="{{ path('pricemenu_show', {'id': pricemenu.id}) }}">show</a>
-                    <a href="{{ path('pricemenu_edit', {'id': pricemenu.id}) }}">edit</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('pricemenu_show', {'id': pricemenu.id}) }}">Afficher</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('pricemenu_edit', {'id': pricemenu.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
@@ -30,6 +35,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('pricemenu_new') }}">Create new</a>
+    <a class="btn btn-primary btn-rounded btn-sm my-0" href="{{ path('pricemenu_new') }}">Créer un prix</a>
 {% endblock %}
+

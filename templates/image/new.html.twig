@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Image{% endblock %}
+{% block title %}Image{% endblock %}
 
 {% block body %}
-    <h1>Create new Image</h1>
+    <h1 class="text-center py-4">Importer une image</h1>
 
     {{ include('image/_form.html.twig') }}
 
-    <a href="{{ path('image_index') }}">back to list</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('image_index') }}">Revenir à la liste</a>
 {% endblock %}

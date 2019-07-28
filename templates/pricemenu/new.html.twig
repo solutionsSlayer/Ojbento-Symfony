@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Pricemenu{% endblock %}
+{% block title %}Prix des menus{% endblock %}
 
 {% block body %}
-    <h1>Create new Pricemenu</h1>
+    <h1 class="text-center m-3">Créer un nouveau prix pour un menu</h1>
 
     {{ include('pricemenu/_form.html.twig') }}
 
-    <a href="{{ path('pricemenu_index') }}">back to list</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0 mb-3" href="{{ path('pricemenu_index') }}">Revenir à la liste</a>
 {% endblock %}

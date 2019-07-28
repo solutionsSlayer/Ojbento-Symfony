@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <h1 class="text-center m-3">Modifier un utilisateur</h1>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    
+    {{ include('user/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
-    <a href="{{ path('user_index') }}">back to list</a>
+    <a>{{ include('user/_delete_form.html.twig') }}</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+    <a class="btn btn-danger btn-rounded mr-2" href="{{ path('user_index') }}">Revenir à la liste</a>
 {% endblock %}

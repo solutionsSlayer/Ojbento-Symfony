@@ -76,6 +76,11 @@
     margin-left: 220px;
     padding: 135px 15px 40px;
 }
+
+.btn {
+    color: white!important;
+}
+
 .command{
     border: solid black;
     margin: 10px;

@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Priceassoc{% endblock %}
+{% block title %}Prix d'association{% endblock %}
 
 {% block body %}
-    <h1>Edit Priceassoc</h1>
+    <h1 class="text-center">Edition d'un prix d'association</h1>
 
-    {{ include('priceassoc/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('priceassoc/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
-    <a href="{{ path('priceassoc_index') }}">back to list</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0 mb-3" href="{{ path('priceassoc_index') }}">Revenir à la liste</a>
 
     {{ include('priceassoc/_delete_form.html.twig') }}
 {% endblock %}

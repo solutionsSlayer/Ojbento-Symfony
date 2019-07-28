@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Pricetype{% endblock %}
+{% block title %}Type de prix{% endblock %}
 
 {% block body %}
-    <h1>Edit Pricetype</h1>
+    <h1 class="text-center m-3">Editer un type de prix</h1>
 
-    {{ include('pricetype/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('pricetype/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
-    <a href="{{ path('pricetype_index') }}">back to list</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0 mb-3" href="{{ path('pricetype_index') }}">Revenir à la liste</a>
 
     {{ include('pricetype/_delete_form.html.twig') }}
 {% endblock %}
