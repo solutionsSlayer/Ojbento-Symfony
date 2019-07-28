@@ -1,13 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Menu{% endblock %}
+{% block title %}Nouveau Menu{% endblock %}
 
 {% block body %}
-    <h1>Create new Menu</h1>
 
-    {{ include('menu/_form.html.twig') }}
+    <h1 class="text-center">Création d'un nouveau menu</h1>
+    {{ form_start(form) }}
+    <div class="float-right">
+        <button class=" btn btn-dark"><a href="{{ path('menu_index') }}">Retour à la liste</a></button>
+    <button class="d-flex justify-content-center align-items-center btn btn-success btn-rounded mr-2">Sauvegarder</button>
 
-    <a href="{{ path('menu_index') }}">back to list</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 m-auto">
+                {{ form_row(form.name) }}
+                {{ form_row(form.isMidi) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="d-flex assoc_header"> <h2>Les produits</h2></div>
+                {{ form_row(form.assocs, {'attr': {'class':'assoc_box'}}) }}
+            </div>
+            <div class="col-6">
+                <div class="d-flex assoc_header"> <h2>Prix</h2></div>
+                {{ form_row(form.prices, {'attr': {'class':'price_box'}}) }}
+            </div>
+
+            </div>
+
+
+    {{ form_end(form) }}
+        </div>
+
+    </div>
+
+
 {% endblock %}
 
 {% block javascripts %}
@@ -15,6 +44,9 @@
     <script>
         $(document).ready(function(){
             $('#assoc_forMenu').val('0');
+            addMenuFrom($('#menu_assocs'), $newAssoc);
+            addPriceFrom($('#menu_prices'), $newPrice);
+
         })
     </script>
 {% endblock %}

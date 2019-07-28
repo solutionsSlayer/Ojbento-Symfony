@@ -1,8 +1,8 @@
 swiftmailer:
-    delivery_addresses: ['ddoussain@gmail.com']
+    delivery_addresses: ['pierretisserand31@gmail.com']
     transport: smtp
     encryption: ssl
     host: smtp.gmail.com
-    username: ddoussain@gmail.com
-    password: Dorian130296du33SISI**/69|69
+    username: Pierre
+    password: T@les070890
     spool: { type: 'memory' }

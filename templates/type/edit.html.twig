@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Type{% endblock %}
+{% block title %}Edition du type de produit{% endblock %}
 
 {% block body %}
-    <h1>Edit Type</h1>
+    <h1>Edition du type de produit</h1>
 
-    {{ include('type/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('type/_form.html.twig', {'button_label': 'Sauvergarder'}) }}
 
-    <a href="{{ path('type_index') }}">back to list</a>
+    <a style="width: 150px;" style="color: white;" class="mb-3 d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2" href="{{ path('type_index') }}">Revenir à la liste</a>
 
-    {{ include('type/_delete_form.html.twig') }}
+     <a style="width: 150px;" style="color: white;" class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2">{{ include('type/_delete_form.html.twig') }}</a>
 {% endblock %}
+
+

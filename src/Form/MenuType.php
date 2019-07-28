@@ -16,10 +16,15 @@ class MenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('isMidi')
+            ->add('name', null, [
+                'attr' => array('class' => 'form-control')
+            ])
+            ->add('isMidi', null, [
+                'label' => 'Pour midi ?'
+            ])
             ->add('assocs',CollectionType::class, [
                 'label' => false,
+                'attr' => array('class' => 'assoc_box'),
                 'entry_type' => AssocType::class,
                 'entry_options' => [
                     'label' => false,
@@ -33,6 +38,8 @@ class MenuType extends AbstractType
             ])
             ->add('prices', CollectionType::class, [
                 'entry_type' => PricemenuType::class,
+                'attr' => array('class' => 'price_box'),
+                'label' => false,
                 'entry_options' => [
                     'label' => false,
                     'attr' => array('class' => 'prices')

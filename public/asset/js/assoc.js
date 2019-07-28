@@ -1,5 +1,5 @@
 var $collectionHolder;
-var $addItemButton = $('<button type= "button" class="btn btn-secondary add_item_link">Ajouter un prix </button>');
+var $addItemButton = $('<button type= "button" class="btn btn-primary mt-3 add_item_link">Ajouter un prix </button>');
 var $newPrice = $('<div></div>').append($addItemButton);
 
 $collectionHolder = $('#assoc_prices');
@@ -16,7 +16,7 @@ $addItemButton.on('click',function(e){
 
 
 function addPriceFormDelete(arg){
-    var $removeFormButton = $('<button class="btn btn-light" type="button">Supprimer le prix</button>');
+    var $removeFormButton = $('<button class="btn btn-danger mt-3 mb-3" type="button">Supprimer le prix</button>');
     arg.append($removeFormButton);
     $removeFormButton.on('click', function(e){
         arg.remove();

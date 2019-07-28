@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Type{% endblock %}
+{% block title %}Types{% endblock %}
 
 {% block body %}
-    <h1>Type</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Types</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+      <tbody>
+           <tr>
                 <th>Id</th>
                 <td>{{ type.id }}</td>
             </tr>
@@ -17,10 +22,12 @@
             </tr>
         </tbody>
     </table>
+    <div class="d-flex">
 
-    <a href="{{ path('type_index') }}">back to list</a>
+        <a class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2" href="{{ path('type_index') }}">Revenir à la liste</a>
 
-    <a href="{{ path('type_edit', {'id': type.id}) }}">edit</a>
+        <a class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2" href="{{ path('type_edit', {'id': type.id}) }}">Editer</a>
 
-    {{ include('type/_delete_form.html.twig') }}
+        <a style="color: white;" class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2">{{ include('type/_delete_form.html.twig') }}</a>
+    </div>
 {% endblock %}

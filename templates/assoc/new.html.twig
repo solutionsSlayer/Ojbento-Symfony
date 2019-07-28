@@ -3,7 +3,7 @@
 {% block title %}Edit Assoc{% endblock %}
 
 {% block body %}
-    <h1>Créer une association</h1>
+    <h1 class="text-center m-5">Créer une association</h1>
     {{ form_start(form) }}
     <div class="container">
         <div class="row">
@@ -13,22 +13,21 @@
                 {{ form_row(form.quantity) }}
                 {{ form_row(form.description) }}
                 {{ form_row(form.composition) }}
+                {{ form_row(form.allergens) }}
             </div>
             <div class="col-6">
                 {{ form_row(form.image) }}
                 <img src="">
                 {{ form_row(form.isDish) }}
-
-
                 {{ form_row(form.prices) }}
-
             </div>
-            {{ form_row(form.allergens) }}
         </div>
     </div>
-    <button class="btn">Save</button>
-    <a href="{{ path('assoc_index') }}">back to list</a>
+    <div class="container d-flex">
+        <button class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2">Sauvegarder</button>
+        <a class="d-flex justify-content-center align-items-center btn btn-danger btn-rounded mr-2" href="{{ path('assoc_index') }}">Revenir à la liste</a>
     {{ form_end(form) }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
