@@ -16,7 +16,8 @@ class ImageType extends AbstractType
                 'required' => false])
             ->add('alt', null, [
                     'attr' => array('class' => 'form-control'),
-                'required' => false
+                'required' => false,
+                'label'=> 'Description de l\'image'
             ])
         ;
     }

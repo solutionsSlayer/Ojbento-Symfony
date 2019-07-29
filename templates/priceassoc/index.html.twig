@@ -1,26 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Priceassoc index{% endblock %}
+{% block title %}Prix d'associations{% endblock %}
 
 {% block body %}
-    <h1>Priceassoc index</h1>
 
-    <table class="table">
+<div class="card">
+  <h1 class="card-header text-center font-weight-bold text-uppercase py-4">Prix des associations</h1>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Value</th>
-                <th>actions</th>
-            </tr>
+          <tr>
+            <th>Numéro de l'association</th>
+            <th>Prix</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for priceassoc in priceassocs %}
             <tr>
                 <td>{{ priceassoc.id }}</td>
-                <td>{{ priceassoc.value }}</td>
+                <td>{{ priceassoc.value }} €</td>
                 <td>
-                    <a href="{{ path('priceassoc_show', {'id': priceassoc.id}) }}">show</a>
-                    <a href="{{ path('priceassoc_edit', {'id': priceassoc.id}) }}">edit</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('priceassoc_show', {'id': priceassoc.id}) }}">Afficher</a>
+                    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('priceassoc_edit', {'id': priceassoc.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
@@ -30,6 +35,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('priceassoc_new') }}">Create new</a>
 {% endblock %}

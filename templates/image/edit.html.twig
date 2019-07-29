@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Image{% endblock %}
+{% block title %}Image{% endblock %}
 
 {% block body %}
-    <h1>Edit Image</h1>
+    <h1 class="text-center py-3">Edition d'une image</h1>
 
-    {{ include('image/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('image/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
-    <a href="{{ path('image_index') }}">back to list</a>
+    <a class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('image_index') }}">Revenir à la liste</a>
 
     {{ include('image/_delete_form.html.twig') }}
 {% endblock %}

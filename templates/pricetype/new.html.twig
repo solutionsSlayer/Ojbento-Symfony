@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Pricetype{% endblock %}
+{% block title %}Type de prix{% endblock %}
 
 {% block body %}
-    <h1>Create new Pricetype</h1>
+    <h1 class="text-center m-3">Créer un type de prix</h1>
 
     {{ include('pricetype/_form.html.twig') }}
 
-    <a href="{{ path('pricetype_index') }}">back to list</a>
+    <a  class="btn btn-danger btn-rounded btn-sm my-0" href="{{ path('pricetype_index') }}">Revenir à la liste</a>
 {% endblock %}
