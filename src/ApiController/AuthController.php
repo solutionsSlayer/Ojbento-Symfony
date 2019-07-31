@@ -82,6 +82,7 @@ class AuthController extends AbstractFOSRestController
                 'id',
                 'email',
                 'username',
+                'phone',
                 'city',
                 'fname',
                 'lname',
@@ -123,7 +124,6 @@ class AuthController extends AbstractFOSRestController
         $user = $userRepository->find($this->getUser());
         $user->setLname($request->get('lname'));
         $user->setFname($request->get('fname'));
-        $user->setEmail($request->get('email'));
         $user->setPhone($request->get('phone'));
         $user->setCity($request->get('city'));
         $user->setPlainPassword($request->get('password'));
@@ -144,7 +144,7 @@ class AuthController extends AbstractFOSRestController
                 'id',
                 'fname',
                 'lname',
-                'email',
+                'username',
                 'phone',
                 'city',
                 'password'

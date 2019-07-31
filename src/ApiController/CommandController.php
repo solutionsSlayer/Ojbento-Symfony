@@ -159,24 +159,7 @@ class CommandController extends AbstractFOSRestController
         $em->persist($command);
         $em->flush();
 
-        /*$commandassocId =$request->get('commandassocs');
-        foreach ($commandassocId as $commandassoc){
-            $ca = $commandassocRepository->find($commandassoc);
-            $command->addCommandassoc($ca);
-            $em->persist($ca);
-        }
-        $commandmenuId =$request->get('commandmenus');
-        foreach ($commandmenuId as $commandmenu){
-            $cm = $commandmenuRepository->find($commandmenu);
-            $command->addCommandmenu($cm);
-            $em->persist($cm);
-        }*/
-        /*$state = $stateRepository->find('4');
-        $command->setState($state);
-        $time = $timeRepository->find($request->get('hour_command'));
-        $command->setTime($time);
-        $em->persist($command);
-        $em->flush();
+
         $d = $serializer->normalize($command, null,
             ['attributes' => [
                 'id',
@@ -191,8 +174,8 @@ class CommandController extends AbstractFOSRestController
                 ],
                 'commandmenus'=> ['id', 'quantity',
                     'menu' =>['id', 'name']]
-            ]]);*/
-        return View::create($command, Response::HTTP_CREATED);
+            ]]);
+        return View::create($d, Response::HTTP_CREATED);
     }
 
 //    /**

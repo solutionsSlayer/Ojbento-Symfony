@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use function PHPSTORM_META\type;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MenuRepository")
  */
@@ -38,6 +39,8 @@ class Menu
      * @ORM\ManyToMany(targetEntity="App\Entity\Assoc", cascade={"all"}, inversedBy="menus", orphanRemoval=true)
      */
     private $assocs;
+
+    
 
     public function __construct()
     {

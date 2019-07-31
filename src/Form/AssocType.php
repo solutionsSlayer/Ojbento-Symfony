@@ -75,7 +75,7 @@ class AssocType extends AbstractType
                 'class'=> Allergen::class,
                 'expanded'=> true,
                 'multiple'=> true,
-                'label' => 'Allergènes)'
+                'label' => 'Allergènes'
             ])
 
         ;
